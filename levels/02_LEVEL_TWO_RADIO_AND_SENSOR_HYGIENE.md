@@ -1,8 +1,8 @@
 # Level 2: Mobile Radio & Sensor Hygiene (Hardware Containment)
 
 > **Document Status:** Verified (Current as of October 2026)  
-> **Technical Baseline:** Android 13/14/15, One UI 6+, HyperOS 1.0+, ColorOS 14+, Funtouch OS 14+  
-> **Official Citations:** [Android Developer: WifiManager.isScanAlwaysAvailable()](https://developer.android.com/reference/android/net/wifi/WifiManager#isScanAlwaysAvailable()), [Android BluetoothLeScanner API](https://developer.android.com/reference/android/bluetooth/le/BluetoothLeScanner), [Android SensorManager Documentation](https://developer.android.com/reference/android/hardware/SensorManager)
+> **Supported Device Scope:** Android 12, 13, 14, 15 (Stock/Pixel, Samsung One UI 5/6, Xiaomi MIUI 14 / HyperOS, ColorOS/OxygenOS 13/14, Vivo Funtouch OS 13/14, Nothing OS 2.5/3.0)  
+> **Primary Technical Citations:** [Android Developer: WifiManager.isScanAlwaysAvailable()](https://developer.android.com/reference/android/net/wifi/WifiManager#isScanAlwaysAvailable()), [AOSP Wi-Fi MAC Randomization Specification](https://source.android.com/docs/core/connect/wifi-mac-randomization), [Android Developer: Bluetooth Permissions in Android 12+](https://developer.android.com/develop/connectivity/bluetooth/bt-permissions), [Android Developer: Wi-Fi Scan Throttling](https://developer.android.com/develop/connectivity/wifi/wifi-scan#wifi-scan-throttling)
 
 ---
 
@@ -31,22 +31,49 @@
 
 ---
 
-## 1. Disabling Phantom Radios (Wi-Fi & Bluetooth Background Scanning)
+## 1. Background Radio Scanning Across Android Versions
 
-### The Deception of Quick Settings
-When you swipe down your phone's notification panel and tap the Wi-Fi or Bluetooth icons to "Off", the Android operating system **does not shut down the physical radio transceivers.**
+### The Architectural Reality: What Happens When Radios Are "Off"?
+When you swipe down your Android notification shade and toggle Wi-Fi or Bluetooth "Off", the operating system disconnects from your current access point or wireless peripheral. However, **it does not power down background radio scanning**.
 
-It merely disconnects from your current router or headphones. In the background, the hardware continues sending probe request frames 24 hours a day to scan for nearby routers and Bluetooth Low Energy (BLE) commercial beacons located in retail outlets, transit stations, and airports.
+* **`WifiManager.isScanAlwaysAvailable()` (Introduced in Android 4.3):** Under standard system defaults, Android enables an API method called [`isScanAlwaysAvailable()`](https://developer.android.com/reference/android/net/wifi/WifiManager#isScanAlwaysAvailable()). This allows internal location providers and third-party apps holding location permissions to scan for nearby Wi-Fi network access points even when the user toggle is set to "Off".
+* **The Role of MAC Address Randomization:** Modern Android versions (Android 10, 11, 12, 13, 14, and 15) deploy [AOSP MAC Address Randomization](https://source.android.com/docs/core/connect/wifi-mac-randomization) for disconnected probe requests and connected networks. This prevents external Wi-Fi sniffers from tracking your physical hardware MAC address.
+* **The Real Tracking Vector: Crowdsourced Telemetry:** Even though your MAC address is randomized, background Wi-Fi scanning actively captures the **BSSIDs (MAC addresses) and signal strengths (RSSI) of all nearby Wi-Fi routers**. Google Location Accuracy (GLS) periodically uploads these observed BSSID snapshots to Google's central database, determining your precise location without turning on the power-hungry satellite GPS receiver.
+* **Bluetooth Low Energy (BLE) Scanning in Android 12+:** In Android 12 and higher, Google separated Bluetooth into dedicated runtime permissions ([`BLUETOOTH_SCAN`](https://developer.android.com/develop/connectivity/bluetooth/bt-permissions), `BLUETOOTH_CONNECT`, and `BLUETOOTH_ADVERTISE`). However, apps without the `neverForLocation` flag still utilize background BLE scanning to calculate physical proximity to commercial beacons in retail stores, transit stations, and airports.
+* **Scan Throttling Limits:** To protect battery life, Android enforces [Wi-Fi scan throttling](https://developer.android.com/develop/connectivity/wifi/wifi-scan#wifi-scan-throttling): foreground apps are restricted to 4 scans per 2-minute window, and background apps are throttled to 1 scan every 30 minutes. However, system location services bypass these limits to maintain continuous tracking.
 
-### How to Turn It Off Completely:
-1. Open phone **Settings**.
-2. Navigate to **Location** ➔ **Location Services** (on some devices: *Security & Location* or *Privacy*).
-3. Locate these two settings:
- - **Wi-Fi Scanning:** *"Let apps and services scan for Wi-Fi networks at any time, even when Wi-Fi is off."*
- - **Bluetooth Scanning:** *"Let apps and services scan for nearby devices at any time, even when Bluetooth is off."*
+---
+
+### Step-by-Step OEM Navigation Guide:
+Because manufacturer interfaces structure location settings differently, use the exact navigation path for your device:
+
+#### Google Pixel / Motorola / Nothing OS / Stock Android (Android 12/13/14/15):
+1. Open **Settings** ➔ **Location**.
+2. Tap **Location Services**.
+3. Locate **Wi-Fi scanning** and **Bluetooth scanning**.
 4. Toggle **BOTH to OFF**.
 
-**The Technical Shift:** When you switch Wi-Fi or Bluetooth to "Off" in the Quick Settings panel, the physical hardware will now actually stop emitting probe frames.
+#### Samsung Galaxy Devices (One UI 5.x / 6.x):
+1. Open **Settings** ➔ **Location**.
+2. Tap **Location services** (under *Location requests*).
+3. Tap **Wi-Fi scanning** ➔ Toggle **OFF**.
+4. Tap **Bluetooth scanning** ➔ Toggle **OFF**.
+
+#### Xiaomi / Redmi / POCO (MIUI 14 / Xiaomi HyperOS):
+1. Open **Settings** ➔ **Location**.
+2. Tap **Wi-Fi and Bluetooth scanning** (or *Location services*).
+3. Toggle off **Wi-Fi scanning**.
+4. Toggle off **Bluetooth scanning**.
+
+#### OnePlus / Realme / Oppo (OxygenOS / ColorOS 13/14 / Realme UI):
+1. Open **Settings** ➔ **Location**.
+2. Tap **Wi-Fi and Bluetooth scanning**.
+3. Toggle off **Wi-Fi scanning** and **Bluetooth scanning**.
+
+#### Vivo / iQOO (Funtouch OS 13/14):
+1. Open **Settings** ➔ **Location**.
+2. Tap **Location services**.
+3. Toggle off **Wi-Fi scanning** and **Bluetooth scanning**.
 
 ---
 
@@ -144,4 +171,8 @@ Here are the concrete, technically verified shifts now active on your device:
 
 ---
 **Support the Project:** Star this repository on GitHub to help other Indian developers, students, and citizens discover it.
+> **Reporting Changed Menus or Inaccuracies:**  
+> Have you noticed a modified settings hierarchy or a different menu title on your specific manufacturer build? [Open an issue on GitHub](https://github.com/rack0911/digital-swaraj/issues) specifying your phone model and OEM skin version.
+
+---
 **Proceed to [Level 3: GAFAM Account Surgery](03_LEVEL_THREE_ACCOUNT_SURGERY.md)**

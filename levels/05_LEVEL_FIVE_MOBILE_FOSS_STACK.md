@@ -1,8 +1,8 @@
 # Level 5: The Mobile FOSS Stack (Clean Open-Source Replacements)
 
 > **Document Status:** Verified (Current as of October 2026)  
-> **Technical Baseline:** Android 13/14/15, ADB Platform-Tools 35+, AppOps Runtime Permissions  
-> **Official Citations:** [Android Developer: SmsRetriever API](https://developers.google.com/identity/sms-retriever/overview), [Android Developer: AppOpsManager](https://developer.android.com/reference/android/app/AppOpsManager), [Android Open Source Project (AOSP) Package Management](https://source.android.com/docs/core/permissions/runtime_perms)
+> **Supported Device Scope:** Android 12, 13, 14, 15 (Stock/Pixel, Samsung One UI 5/6, Xiaomi MIUI 14 / HyperOS, ColorOS/OxygenOS 13/14, Vivo Funtouch OS 13/14, Nothing OS 2.5/3.0); ADB Platform-Tools 35+  
+> **Primary Technical Citations:** [Android Developer: SmsRetriever API](https://developers.google.com/identity/sms-retriever/overview), [Android Developer: AppOpsManager](https://developer.android.com/reference/android/app/AppOpsManager), [Android Developers: Play Integrity API](https://developer.android.com/google/play/integrity), [AOSP Package Management](https://source.android.com/docs/core/permissions/runtime_perms)
 
 ---
 
@@ -18,12 +18,12 @@
 | :--- | :--- | :--- | :--- |
 | **App Store (FOSS)** | Google Play Store (exclusively) | **F-Droid** | Access verified, tracking-free open-source mobile software. |
 | **App Store (Proprietary)** | Google Play logged into personal Gmail | **Aurora Store** | Anonymous Play Store client; downloads genuine APKs without a Google account. |
-| **Keyboard** | Gboard / SwiftKey | **HeliBoard** | 100% offline typing; zero keystroke telemetry or cloud sync. |
+| **Keyboard** | Gboard / SwiftKey | **HeliBoard** | Offline typing; compiled without network permissions, preventing cloud keystroke synchronization. |
 | **Local File Share** | SHAREit / Quick Share / Nearby | **LocalSend** | Encrypted peer-to-peer file transfer over local Wi-Fi across Android, PC, and iOS. |
 | **Video Streaming** | YouTube App (heavy ads & tracking) | **NewPipe** or **Brave Browser** | Ad-free viewing, background audio playback, zero Google account required. |
 | **Photo Gallery** | Proprietary OEM Gallery with ads | **Aves Libre** | Fast, clean, offline media management with full metadata and EXIF control. |
 | **Cloud Photo Backup** | Google Photos (facial recognition & indexing) | **Ente Photos** / **Proton Drive** / **Immich** | End-to-end encrypted cloud photo backup; zero server-side scanning. |
-| **Fitness & Workouts** | Strava / Nike Run Club (GPS & health data harvesting) | **FitoTrack** / **Stepsy** / **openGym** | 100% offline running GPS, step counts, and gym logs; zero cloud telemetry. |
+| **Fitness & Workouts** | Strava / Nike Run Club (GPS & health data harvesting) | **FitoTrack** / **Stepsy** / **openGym** | Local GPS, step counts, and gym logs without cloud transmission. |
 | **Mobile Email** | Proprietary Gmail App | **Thunderbird for Android** | Connects to existing email via IMAP with zero in-app ads or Google telemetry. |
 | **Core Phone Utilities** | Google / OEM Dialer, Contacts, Clock | **Fossify Suite** | Complete offline phone dialer, contacts, clock, and calculator without internet access. |
 
@@ -63,7 +63,7 @@ Your keyboard is the single most sensitive software component on your smartphone
 Proprietary cloud keyboards utilize background network access to synchronize custom dictionaries, send predictive telemetry to corporate servers, and improve machine-learning models.
 
 ### The Solution: [HeliBoard](https://github.com/Helium314/HeliBoard) (Available on F-Droid & GitHub)
-- **Zero Internet Permission:** HeliBoard is compiled **without the Android Internet permission (`android.permission.INTERNET`)**. It is physically impossible for the app to transmit a single byte of data off your phone.
+- **No Internet Permission:** HeliBoard is compiled without the Android internet permission ([`android.permission.INTERNET`](https://developer.android.com/reference/android/Manifest.permission#INTERNET)). The operating system sandbox prevents the keyboard from establishing network connections, ensuring typed text and passwords stay on-device.
 - **Modern Features:** Supports swipe typing (via an offline library), multilingual dictionaries, themes, and clipboard management.
 - **Indian Language Support:** Integrates offline dictionaries for regional languages with zero cloud dependency.
 
@@ -75,7 +75,7 @@ For years, users in India relied on file-sharing tools like SHAREit or Xender, w
 
 ### The Solution: [LocalSend](https://localsend.org/) (Open-Source & Cross-Platform)
 - **Local Network Only:** Transfers files, photos, and text snippets securely over your local Wi-Fi network without routing data through external cloud servers.
-- **Zero Internet Required:** Works completely offline using a local Wi-Fi router or mobile hotspot.
+- **Local Network Operation:** Operates over your local Wi-Fi router or mobile hotspot without routing through external servers.
 - **Universal Cross-Platform Compatibility:** Runs seamlessly across Android, Linux, Windows, macOS, and iOS—eliminating the need for proprietary vendor ecosystems.
 - **End-to-End Encryption:** File transfers are encrypted using HTTPS directly between devices on your local network.
 
@@ -95,7 +95,7 @@ The official YouTube mobile app is heavily optimized for engagement loops, unski
 If you prefer not to install an extra app:
 - Open `m.youtube.com` inside **Brave Browser**.
 - Brave's built-in Shields automatically block all video ads.
-- Enable **"Background Play"** in Brave's Settings (`Settings ➔ Media ➔ Background Play`) to continue listening to podcasts, music, and lectures with your screen turned off—100% free without YouTube Premium.
+- Enable **"Background Play"** in Brave's Settings (`Settings ➔ Media ➔ Background Play`) to continue listening to podcasts, music, and lectures with your screen turned off without requiring a subscription.
 
 ---
 
@@ -145,14 +145,14 @@ Commercial fitness and running applications (such as **Strava**, **Nike Run Club
 ### The Sovereign FOSS Fitness Stack:
 
 #### 1. Outdoor Running & Cycling: [FitoTrack](https://f-droid.org/packages/de.tadris.fitness/) (Available on F-Droid & Play Store)
-- **100% Offline & Open-Source (GPLv3):** FitoTrack is a dedicated fitness tracker that logs running, cycling, hiking, and walking sessions without ads, accounts, or cloud dependencies.
+- **Offline by Design (GPLv3):** FitoTrack is an open-source fitness tracker that logs running, cycling, hiking, and walking sessions without ads, accounts, or cloud dependencies.
 - **Local Route Logging:** Records your GPS route, speed, pace, elevation, and calories purely to local device storage.
 - **Local Bluetooth Sensor Support:** Connects directly to standard Bluetooth Low Energy (BLE) heart-rate chest straps and cadence sensors without requiring proprietary manufacturer cloud accounts.
 - **Data Portability:** Exports your workout data directly to standard `.gpx` files on your phone, allowing you to back up or analyze your workouts without corporate vendor lock-in.
 
 #### 2. Daily Step Counting: [Stepsy](https://f-droid.org/) (Available on F-Droid / GitHub)
 - **Zero Battery Drain & Zero Trackers:** Stepsy uses your phone's built-in hardware step sensor to record daily walking metrics without keeping your GPS radio active.
-- **100% Offline Operation:** Operates without an internet connection, account registration, or background analytics.
+- **Offline Operation:** Operates without requiring network connectivity, account registration, or background analytics.
 - **Local Insights:** Displays clean daily and weekly step trends and streaks directly on your device.
 
 #### 3. Strength Training & Gym Workouts: [openGym](https://github.com/DuarteSantos8/openGym) / [wger](https://wger.de/)
@@ -169,9 +169,9 @@ Most pre-installed system apps on Android—including Google Phone (Dialer), Goo
 Fossify is the clean, community-led open-source fork of the acclaimed Simple Mobile Tools ecosystem (created after the original project was acquired by an advertising vendor):
 
 1. **[Fossify Phone & Contacts](https://github.com/FossifyOrg/Phone):** A clean offline dialer and contact manager. Your address book stays stored exclusively on your device rather than syncing contacts to Google's cloud servers.
-2. **[Fossify Clock](https://github.com/FossifyOrg/Clock) & [Fossify Calculator](https://github.com/FossifyOrg/Calculator):** Fast, utility-focused tools compiled **without the internet permission (`android.permission.INTERNET`)**. They execute calculations and alarms locally with zero telemetry.
+2. **[Fossify Clock](https://github.com/FossifyOrg/Clock) & [Fossify Calculator](https://github.com/FossifyOrg/Calculator):** Fast, utility-focused tools compiled **without the internet permission (`android.permission.INTERNET`)**. They execute calculations and alarms locally without network permissions.
 3. **[Fossify Calendar](https://github.com/FossifyOrg/Calendar):** Manages offline schedules and events without syncing your personal itinerary to corporate cloud calendars.
-4. **[Thunderbird for Android](https://www.thunderbird.net/) (Email Client):** The open-source standard (built on K-9 Mail) to replace the pre-installed Gmail app. Manages your existing email accounts over standard IMAP/SMTP with zero telemetry and automatic email spy pixel stripping.
+4. **[Thunderbird for Android](https://www.thunderbird.net/) (Email Client):** The open-source standard (built on K-9 Mail) to replace the pre-installed Gmail app. Manages your existing email accounts over standard IMAP/SMTP without commercial tracking modules and strips embedded tracking pixels.
 
 ---
 
@@ -219,7 +219,7 @@ Under the guise of a productivity tool, **Digital Wellbeing** (`com.google.andro
 
 ### The Safe Neutralization Blueprint (Non-Root / Bootloader Locked)
 
-You do **not** need to root your phone or unlock your bootloader (which would break banking apps and Google Play Integrity). Using standard ADB commands over USB from your laptop, you can permanently neutralize these daemons for your user profile (`--user 0`):
+You do **not** need to root your phone or unlock your bootloader (which would break banking apps and Google Play Integrity). Using standard ADB commands over USB from your computer, you can disable and neutralize these daemons for your primary user profile (`--user 0`):
 
 ```bash
 # -------------------------------------------------------------
@@ -285,7 +285,7 @@ adb shell pm disable-user --user 0 com.tools.cit
 
 * **ADB Package Removal (`--user 0`) vs. System Image Partitioning:** Running `pm uninstall -k --user 0` removes the package from the primary user space (user 0), stopping execution, background services, and storage access. However, because stock Android system partitions (`/system`, `/product`, `/system_ext`) are mounted read-only (`dm-verity`), the underlying APK files remain in storage and can be re-provisioned if a factory reset occurs or after major OS version upgrades (e.g., Android 14 to 15).
 * **FCM Push Notifications vs. Google Play Services:** FOSS apps downloaded from F-Droid (like Thunderbird or Signal) implement their own background polling or persistent websockets. However, many proprietary third-party apps (banking, food delivery, ride-hailing) rely exclusively on Google Cloud Messaging / Firebase Cloud Messaging (FCM). Completely uninstalling Google Play Services breaks push notifications for these apps unless running on an OS with sandboxed Google Play (like GrapheneOS) or microG.
-* **Banking / UPI Attestation (Play Integrity / SafetyNet):** Replacing stock dialers, keyboards, and browsers with FOSS apps does not affect UPI apps (BHIM, PhonePe, Google Pay). However, attempting to root your phone or unlock the bootloader to physically delete system APKs trips Android's hardware-backed Play Integrity API (`MEETS_DEVICE_INTEGRITY`), which breaks banking and UPI authentication. Non-root ADB debloating as documented maintains 100% Play Integrity.
+* **Banking / UPI Attestation (Play Integrity / SafetyNet):** Replacing stock dialers, keyboards, and browsers with FOSS apps does not affect UPI apps (BHIM, PhonePe, Google Pay). However, attempting to root your phone or unlock the bootloader to physically delete system APKs trips Android's hardware-backed Play Integrity API (`MEETS_DEVICE_INTEGRITY`), which breaks banking and UPI authentication. Non-root ADB debloating as documented maintains hardware-backed Play Integrity (`MEETS_DEVICE_INTEGRITY`) attestation.
 
 ---
 
@@ -313,15 +313,19 @@ adb shell pm disable-user --user 0 com.tools.cit
 
 Here are the concrete, technically verified shifts now active on your device:
 
-1. **Zero Keystroke Telemetry:** Your keyboard hardware transcribes text completely offline. No typing patterns, personal messages, or search entries can be transmitted to cloud servers.
+1. **Local Keystroke Processing:** Your keyboard processes text locally without network permissions. Keystroke patterns, personal chats, and search entries cannot be uploaded to remote cloud services.
 2. **Anonymous App Acquisitions:** You download necessary proprietary Android applications via Aurora Store without associating your device installations with a personal Google advertising ID.
 3. **Local, Ad-Free File Transfer:** Moving files between your phone, laptop, or other devices occurs over local Wi-Fi with end-to-end encryption—bypassing proprietary cloud bridges.
 4. **Distraction-Free Video Streaming:** Video content plays without unskippable commercial ads, algorithmic watch-history profiling, or mandatory account logins.
 5. **Metadata Sovereignty:** You have full visibility over photo EXIF metadata and GPS tags before images leave your device.
 6. **Biometric Photo Isolation:** Your personal photos and family albums are end-to-end encrypted, preventing automated facial recognition, spatial indexing, or commercial AI training.
-7. **Biometric & Route Autonomy:** Your daily step counts, running routes, and gym workouts are logged 100% on-device. No fitness corporation, insurer, or social feed monitors your physical movement or coordinates.
+7. **Biometric & Route Autonomy:** Your daily step counts, running routes, and gym workouts are logged locally on-device. No fitness corporation, insurer, or social feed monitors your physical movement or coordinates.
 8. **Sanitized Core Utilities:** Your dialer, address book, clock, and calculator operate strictly offline with zero call-log telemetry or cloud synchronization.
 
 ---
 **Support the Project:** Star this repository on GitHub to help other Indian developers, students, and citizens discover it.
+> **Reporting Changed Packages or Inaccuracies:**  
+> If an OEM update has altered package names or introduced new system daemons on your device model, please [open an issue on GitHub](https://github.com/rack0911/digital-swaraj/issues) with your package audit list.
+
+---
 **Proceed to [Level 6: Street & FinTech Defense](06_LEVEL_SIX_STREET_AND_FINTECH_DEFENSE.md)**

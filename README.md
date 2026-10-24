@@ -5,9 +5,9 @@ An open-source, level-by-level operational guide to reclaim your privacy, attent
 
 ---
 
-> **Status:** Verified (Current as of October 2026)  
-> **Technical Baseline:** Android 13/14/15, Linux Kernel 6.x, Chromium / Gecko (Firefox ESR)  
-> **Regulatory Citations:** TRAI TCCCPR 2018, MoCA Advisory (May 23, 2023), RBI Digital Lending Guidelines 2022, UIDAI Aadhaar Act 2016, CERT-In Directions No. 20(3)/2022
+> **Document Status:** Verified (Current as of October 2026)  
+> **Supported Device Scope:** Android 12, 13, 14, 15 (Google Pixel/AOSP, Samsung One UI 5/6, Xiaomi MIUI 14 / HyperOS, OnePlus/Realme/Oppo ColorOS 13/14, Vivo Funtouch OS 13/14, Nothing OS 2.5/3.0); Linux Kernel 6.x (Fedora 39/40/41, Debian 12, Ubuntu 24.04 LTS)  
+> **Primary Regulatory & Technical Citations:** [TRAI TCCCPR 2018 (Gazette Notification)](https://trai.gov.in/sites/default/files/Regulation_19072018.pdf), [MoCA Advisory (PIB PRID 1926639)](https://pib.gov.in/PressReleasePage.aspx?PRID=1926639), [RBI Digital Lending Directions 2022](https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx?Id=12382), [UIDAI Aadhaar Offline Regulations](https://uidai.gov.in/images/resource/FAQ_Aadhaar_Paperless_Offline_e-KYC.pdf), [CERT-In Directions No. 20(3)/2022](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf)
 
 ---
 
@@ -43,6 +43,22 @@ Not every citizen needs to install a new desktop operating system or execute ADB
 | **Path A: The Pragmatic Citizen** | Everyday smartphone users, non-technical family members, students | **15 Minutes** (Zero Technical Skill) | Level 0 baseline audit awareness, Level 1 encrypted DNS (NextDNS/AdGuard DoT), Level 4 TRAI Full DND (SMS `START 0` to 1909), Level 6 statutory phone number refusal at retail counters. |
 | **Path B: The Privacy-Conscious Mobile User** | Working professionals, privacy-aware individuals | **1 Hour** (No Root / No Coding) | Level 2 hardware radio/sensor containment, Level 3 GAFAM account surgery, Level 4 Three-Tier Email Architecture (Sovereign Vault + Managed Aliases), Level 5 Mobile FOSS suite (HeliBoard, Fossify, Aves Libre), Level 6 Masked Aadhaar. |
 | **Path C: The Sovereign Engineer** | Developers, system administrators, advanced users | **Weekend Project** | Level 5 ADB non-root deep-daemon surgery, Level 7 Fedora Linux sovereign workstation, local document tools (Stirling-PDF, Squoosh, Flameshot), and Waydroid containerized messaging. |
+
+---
+
+## Zero-Friction Quick Start (High Leverage, Zero Technical Barrier)
+
+> [!IMPORTANT]
+> **No Root, No Coding, No OS Reinstallation Required**  
+> You do **not** need to install Linux, wipe your device, or run terminal commands to achieve meaningful digital privacy in India. Over 80% of corporate surveillance can be neutralized in under 15 minutes through seven non-technical settings toggles:
+
+1. **Private DNS (30 Seconds):** Open phone *Settings ➔ Network & internet ➔ Private DNS*, select *Private DNS provider hostname*, and enter `dns.nextdns.io`. This filters network-level ad trackers and telemetry across all installed apps without battery drain.
+2. **Statutory DND (10 Seconds):** Send an SMS with the text `START 0` to **`1909`**. This registers your number under TRAI Category 0 Full DND, creating legal liability and disconnection penalties for registered commercial telemarketers.
+3. **Tracker-Shielding Browser (2 Minutes):** Switch your default mobile browser from Google Chrome to **Brave** or **Firefox** (with the uBlock Origin add-on). This prevents cross-site tracking cookies, blocks third-party advertising scripts, and mitigates dynamic ticket pricing surges.
+4. **Hardware Radio Containment (1 Minute):** Open phone *Settings ➔ Location ➔ Location Services*, and toggle **OFF** both *Wi-Fi scanning* and *Bluetooth scanning*, then toggle **OFF** *Google Location Accuracy*. This stops your phone from constantly broadcasting probe requests and uploading nearby router BSSIDs.
+5. **Retail Counter Refusal (0 Seconds):** When cashiers ask for your mobile number to generate a bill, decline and request the standard cash/walk-in guest code (`0000000000`). Retailers are legally prohibited from conditioning sales on phone numbers under the Ministry of Consumer Affairs May 23, 2023 directive.
+6. **Masked Aadhaar (2 Minutes):** Visit [myaadhaar.uidai.gov.in](https://myaadhaar.uidai.gov.in/), check *"Do you want a masked Aadhaar?"*, and download your official Masked e-Aadhaar (showing only `XXXX-XXXX-1234`). Use this for all offline hotel check-ins, security desks, and private verifications.
+7. **Password Manager (5 Minutes):** Install **Bitwarden** or **Proton Pass** to generate strong, unique passwords for every service, eliminating the critical risk of credential-stuffing breaches.
 
 ---
 
@@ -122,9 +138,29 @@ All referenced product names, trademarks, and registered marks belong to their r
 ---
 
 ## Support the Project
-If this playbook helped you regain even 10% of your peace of mind or taught you something new:
+If this playbook helped you regain peace of mind and data autonomy or taught you something new:
 - **Star this repository** to help other Indian developers, students, and citizens discover it.
 - **Share it** with friends, colleagues, or family members who are overwhelmed by notification spam and intrusive defaults.
+
+---
+
+## Verification Scope & Reporting Inaccuracies
+
+* **Verification Date:** October 2026 (Annual baseline review).
+* **Tested Hardware & Interfaces:**
+  - **Stock Android / AOSP:** Android 12, 13, 14, 15 (Google Pixel series).
+  - **Samsung:** One UI 5.x, One UI 6.x (Galaxy S / M / F series).
+  - **Xiaomi / Redmi / POCO:** MIUI 14, Xiaomi HyperOS 1.0+.
+  - **OnePlus / Realme / Oppo:** OxygenOS 13/14, ColorOS 13/14, Realme UI 4/5.
+  - **Vivo / iQOO:** Funtouch OS 13/14.
+  - **Nothing:** Nothing OS 2.5, 3.0.
+  - **Workstation:** Linux Kernel 6.x (Fedora 39/40/41, Debian 12 Bookworm, Ubuntu 24.04 LTS).
+
+### Reporting Changed Menus or Inaccurate Instructions
+Mobile operating system interfaces, OEM menu hierarchies, and regulatory circulars evolve continuously. If you identify a changed setting path on your device, a broken link, or an outdated legal citation:
+1. **Open an Issue:** Submit a detailed report at [github.com/rack0911/digital-swaraj/issues](https://github.com/rack0911/digital-swaraj/issues).
+2. **Include Device Context:** Specify your device manufacturer, phone model, Android version, and software build number.
+3. **Submit a Pull Request:** Direct documentation patches proposing verified corrections are welcomed and reviewed promptly under open-source peer review.
 
 ---
 

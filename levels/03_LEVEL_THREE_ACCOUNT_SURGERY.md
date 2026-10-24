@@ -1,8 +1,8 @@
 # Level 3: GAFAM Account Surgery (Stopping Big Tech Telemetry)
 
 > **Document Status:** Verified (Current as of October 2026)  
-> **Technical Baseline:** Google Account Activity Controls, Gmail Web Settings, LinkedIn Data Privacy Controls, Meta Accounts Center  
-> **Official Citations:** [Google Support: Smart Features & Personalization in Gmail](https://support.google.com/mail/answer/10079371), [Google Support: Manage Web & App Activity](https://support.google.com/accounts/answer/54068), [LinkedIn Help: AI Model Training & Data Privacy](https://www.linkedin.com/help/linkedin/answer/a5153723), [Meta Privacy Center: Off-Meta Activity](https://www.facebook.com/help/122534151433478)
+> **Supported Platform Scope:** Web Browsers, Android (Google Play Services / Accounts), iOS (Google / Meta / LinkedIn Apps)  
+> **Primary Platform Documentation:** [Google Activity Controls Help](https://support.google.com/accounts/answer/54068), [Gmail Smart Features Support](https://support.google.com/mail/answer/10079371), [LinkedIn Help on Generative AI Data Privacy](https://www.linkedin.com/help/linkedin/answer/a5153723), [Meta Help: Off-Meta Technologies](https://www.facebook.com/help/122534151433478)
 
 ---
 
@@ -35,7 +35,7 @@
 
 ## 1. Google Account Surgery: Halting the Permanent Dossier
 
-Visit the central Google Activity dashboard while logged into your primary account: 
+Visit the central Google Activity dashboard while logged into your primary account ([Google Activity Controls Documentation](https://support.google.com/accounts/answer/54068)): 
  **[myaccount.google.com/activitycontrols](https://myaccount.google.com/activitycontrols)**
 
 ### A. Web & App Activity
@@ -62,7 +62,7 @@ Visit: **[myadcenter.google.com](https://myadcenter.google.com)**
 
 ## 2. Gmail Receipt Parsing: Turning Off "Smart Features"
 
-As documented in Level 0, Google's backend intelligence scans confirmation emails, travel bookings, and tax invoices landing in your Gmail inbox.
+Under Google's default configuration, automated machine learning models parse incoming commercial receipts, flight reservations, and calendar invitations ([Google Support: Smart features in Gmail](https://support.google.com/mail/answer/10079371)).
 
 ### How to Turn It Off:
 1. Open Gmail on the web (desktop browser recommended for account-wide enforcement).
@@ -89,7 +89,7 @@ If you want to keep receiving and sending email from your current `@gmail.com` a
 1. **Disable the Gmail App:** Go to phone **Settings ➔ Apps ➔ Gmail ➔ Disable** (and revoke all background permissions).
 2. **Install Thunderbird:** Download the official open-source **[Thunderbird for Android](https://www.thunderbird.net/)** (available on F-Droid, Google Play, and GitHub—the official evolution of the renowned K-9 Mail project) or the Thunderbird desktop client.
 3. **Connect via Standard IMAP:** Log in with your Gmail credentials using standard OAuth2 authentication.
-4. **The Advantage:** You receive your mail through a 100% open-source client with zero telemetry, zero embedded inbox ads, and local open-source code handling your message rendering.
+4. **The Advantage:** You receive your mail through an audited open-source client (Mozilla Public License 2.0) that contains no advertising SDKs, proprietary tracking beacons, or cross-service profiling scripts.
 
 ---
 
@@ -149,7 +149,7 @@ Even if you browse shopping or service websites with your Instagram or Facebook 
 ## Completed Checklist
 
 - [x] Google Web & App Activity paused or limited to 3-month auto-deletion.
-- [x] Google Timeline (Location History) permanently paused and past history purged.
+- [x] Google Timeline (Location History) paused and past historical tracking data purged.
 - [x] Google Personalized Advertising toggled OFF.
 - [x] Gmail "Smart features and personalization" disabled across all services.
 - [x] Gmail mobile app contained: disabled in favor of Thunderbird for Android or auto-forwarded to an encrypted inbox (Proton / Tuta).
@@ -170,4 +170,8 @@ Here are the concrete, technically verified shifts now active on your accounts:
 
 ---
 **Support the Project:** Star this repository on GitHub to help other Indian developers, students, and citizens discover it.
+> **Reporting Changed Menus or Inaccuracies:**  
+> Cloud platforms frequently redesign their account settings menus. If a setting has relocated on Google, LinkedIn, or Meta, please [open an issue on GitHub](https://github.com/rack0911/digital-swaraj/issues).
+
+---
 **Proceed to [Level 4: The Disposable Identity](04_LEVEL_FOUR_IDENTITY_MASKING.md)**

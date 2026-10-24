@@ -1,8 +1,8 @@
 # Level 7: The Sovereign Workstation (Workstation Containment & WhatsApp Sandboxing)
 
 > **Document Status:** Verified (Current as of October 2026)  
-> **Technical Baseline:** Linux Kernel 6.x, Wayland / PipeWire, Waydroid (LXC namespaces / Android 11+ AOSP)  
-> **Standards & Specifications:** [ISO/IEC 26300 (Open Document Format)](https://www.oasis-open.org/standards#opendocumentv1.2), [Linux Kernel cgroups v2 and user namespaces](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html), [W3C WebAssembly Specification](https://www.w3.org/TR/wasm-core-1/)
+> **Supported Workstation Scope:** Linux Kernel 6.x (Fedora 39/40/41, Debian 12 Bookworm, Ubuntu 24.04 LTS); Wayland Compositor; LXC / Waydroid  
+> **Primary Technical Standards:** [ISO/IEC 26300:2015 (Open Document Format)](https://www.iso.org/standard/66363.html), [Linux Kernel cgroups v2 Specification](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html), [W3C WebAssembly Core Specification](https://www.w3.org/TR/wasm-core-1/)
 
 ---
 
@@ -17,12 +17,12 @@
 | Vector | Current Vulnerable Default | The Sovereign Workstation Protocol | Direct Result |
 | :--- | :--- | :--- | :--- |
 | **Desktop OS** | Windows / macOS with telemetry | **Linux Workstation** (Fedora / Debian) | Full hardware sovereignty; zero OS-level telemetry or diagnostic scraping. |
-| **Office Suite** | Microsoft 365 / OneDrive (cloud harvesting) | **LibreOffice** or **OnlyOffice** | 100% offline document processing; zero cloud sync or AI Copilot training. |
-| **PDF Manipulation** | Shady web tools (iLovePDF, Smallpdf) | **Stirling-PDF** (Local / Self-Hosted) | Merge, split, compress, and redact sensitive tax/ID PDFs 100% locally on your machine. |
+| **Office Suite** | Microsoft 365 / OneDrive (cloud harvesting) | **LibreOffice** or **OnlyOffice** | Local document processing; eliminates mandatory cloud sync and Copilot model ingestion. |
+| **PDF Manipulation** | Shady web tools (iLovePDF, Smallpdf) | **Stirling-PDF** (Local / Self-Hosted) | Merge, split, compress, and redact sensitive tax/ID PDFs locally on your machine. |
 | **Image Compression** | Online photo reducers for govt portals | **Squoosh** (Client-Side WebAssembly) | Compresses photos and signatures under strict KB limits with zero server uploads. |
 | **Screenshots & Redaction** | Cloud tools uploading images to URLs | **Flameshot** (Local FOSS Tool) | In-place pixelation and redaction for banking/receipt screenshots with zero uploads. |
 | **Clipboard History** | Windows Cloud Clipboard (syncs to servers) | **CopyQ** (Offline FOSS Manager) | Searchable local clipboard with zero cloud leakage and password auto-exclusion. |
-| **WhatsApp Environment** | Primary physical phone 24/7 | **Sandboxed in Waydroid Container on PC** | Laptop becomes primary device; physical phone is 100% WhatsApp-free. |
+| **WhatsApp Environment** | Primary physical phone 24/7 | **Sandboxed in Waydroid Container on PC** | Laptop becomes primary device; physical phone carries no WhatsApp client. |
 | **Container Control** | Background processes running continuously | Instant session termination (`waydroid session stop`) | Terminates all container processes instantly, freeing memory and silencing alerts. |
 | **Physical Phone Role** | Attention-hijacking entertainment hub | **Calm Utility Tool** | Phone carries zero social feeds or trading apps; reserved strictly for calls, UPI, and 2FA. |
 
@@ -56,14 +56,14 @@ Microsoft 365 (formerly Office 365) has transformed from a standalone local prod
 ### The Sovereign Local Replacements:
 
 #### 1. [LibreOffice](https://www.libreoffice.org/) (The Gold Standard FOSS Suite)
-- **100% Offline & Open-Source:** Governed by The Document Foundation with zero commercial telemetry, zero ads, and zero account logins.
+- **Offline by Design & Open-Source:** Governed by The Document Foundation with no commercial telemetry, advertising SDKs, or forced account logins.
 - **Native OpenDocument Standards:** Saves files in standard OpenDocument Formats (`.odt`, `.ods`, `.odp`) to ensure your data remains accessible decades into the future without vendor lock-in.
 - **Complete Microsoft Compatibility:** Reads and writes modern Microsoft Office formats (`.docx`, `.xlsx`, `.pptx`) with high fidelity.
 
 #### 2. [OnlyOffice Desktop Editors](https://www.onlyoffice.com/desktop.aspx) (High-Fidelity Alternative)
 - **Native DOCX Architecture:** Uses Microsoft Office file formats as its core native standard, providing pixel-perfect compatibility for complex formatting, tables, and corporate templates.
 - **Clean Modern Interface:** Features a tabbed interface familiar to users transitioning away from modern Microsoft 365.
-- **Zero Cloud Requirement:** The desktop version operates completely locally with no mandatory account creation or cloud synchronization.
+- **Local Offline Operation:** The desktop version operates locally with no mandatory account creation or cloud synchronization.
 
 ---
 
@@ -79,9 +79,9 @@ These platforms ingest unencrypted documents onto commercial cloud servers where
 ### The Sovereign Replacements:
 
 #### 1. [Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF) (Local & Self-Hosted PDF Suite)
-Stirling-PDF is a 100% open-source, robust, feature-complete PDF swiss-army knife that runs completely locally on your hardware:
+Stirling-PDF is an audited open-source (GPL-3.0), robust PDF utility that runs locally on your hardware:
 - **Comprehensive PDF Operations:** Merge, split, rotate, compress, redact sensitive numbers, add watermarks, extract images, and convert formats.
-- **100% Local Processing:** Runs on your local machine with zero external network calls. Not a single byte of your bank statement or tax audit ever touches the internet.
+- **Local In-Memory Processing:** Runs on your local hardware with zero external network calls. Your bank statements and tax filings never leave your local machine.
 - **Zero-Friction Deployment:** Can be launched locally in 10 seconds via Docker or run as a standalone desktop utility:
   ```bash
   docker run -d -p 8080:8080 --name stirling-pdf frooodle/s-pdf:latest
@@ -90,8 +90,8 @@ Stirling-PDF is a 100% open-source, robust, feature-complete PDF swiss-army knif
 
 #### 2. [Squoosh](https://squoosh.app/) (Client-Side WebAssembly Image Compression)
 For meeting arbitrary government portal file-size restrictions (e.g., compressing passport photos or signatures to exact KB thresholds):
-- **100% In-Browser Execution:** Developed by Google Chrome Labs as an open-source progressive web app (PWA), Squoosh uses in-browser **WebAssembly (WASM)** codecs.
-- **Zero Server Uploads:** All compression calculations execute in your device's local CPU memory. You can load `squoosh.app`, turn off your Wi-Fi, and compress photos completely offline.
+- **Client-Side In-Browser Execution:** Squoosh executes image compression algorithms directly within your local browser memory via [W3C WebAssembly (WASM)](https://www.w3.org/TR/wasm-core-1/).
+- **Zero Server Uploads:** All compression calculations execute in your device's local CPU memory. You can load `squoosh.app`, disconnect from the internet, and compress files in memory.
 - **Granular Control:** Offers visual side-by-side quality sliders, dimension resizing, and format conversion (MozJPEG, WebP, PNG) to hit exact government file-size targets without quality degradation.
 
 #### 3. [Flameshot](https://flameshot.org/) (Local Screenshot Redaction & Privacy Pixelation)
@@ -101,7 +101,7 @@ Taking screenshots to share UPI receipts, bank error codes, KYC confirmation pag
 
 **Flameshot is a powerful open-source (GPL-3.0) screenshot suite for Linux, Windows, and macOS:**
 - **Destructive In-Memory Pixelation:** Features a dedicated pixelate/blur tool that mathematically destroys the underlying pixel data in memory before saving. Once pixelated, your Aadhaar digits, bank balances, or mobile numbers cannot be reversed or recovered.
-- **100% Local Storage:** Captures save directly to your local clipboard buffer or disk with zero external network connectivity or accidental cloud hosting.
+- **Local Storage Only:** Captures save directly to your local clipboard buffer or disk with zero external network connectivity or accidental cloud hosting.
 - **System Shortcut Integration:** Easily binds to the standard `PrintScreen` key on Fedora and other desktop environments for instantaneous, distraction-free capture.
 
 ---
@@ -115,7 +115,7 @@ Modern Windows includes a built-in clipboard history feature (`Win + V`) with a 
 
 ### The Solution: [CopyQ](https://github.com/hluk/CopyQ) (Advanced Offline Clipboard Manager)
 CopyQ is an open-source, cross-platform clipboard manager available for Linux, Windows, and macOS:
-- **100% Local Storage:** Stores clipboard history in a local SQLite database on your device with zero cloud connectivity.
+- **Local Offline Database:** Stores clipboard history in a local SQLite database on your device with zero cloud connectivity.
 - **Searchable History & Tabs:** Organize snippets into custom tabs (e.g., *Code Snippets*, *Notes*, *Temporary*).
 - **Password Manager Protection:** Automatically respects sensitive clipboard flags emitted by password managers (Bitwarden, KeePassXC) to avoid storing master credentials in plain text.
 - **Local Encryption:** Supports encrypting specific tabs or items with GnuPG for sensitive workflows.
@@ -152,7 +152,7 @@ WhatsApp Web historically requires an active mobile phone as the host device, me
 ```
 
 ### Key Operational Advantages:
-1. **Physical Phone is 100% WhatsApp-Free:** Your physical handset carries zero WhatsApp data, zero background chat polling, and zero notification interruptions.
+1. **Handset Free of WhatsApp:** Your physical handset carries no WhatsApp client, eliminating background chat polling and impulse notification loops.
 2. **Laptop is the Primary Device:** WhatsApp runs directly on your computer inside an isolated container. You read and reply to messages deliberately during focused work sessions.
 3. **Instant Session Killing:** Running `waydroid session stop` halts the entire Android container immediately. All background processes terminate cleanly, reclaiming system memory and stopping all network polling.
 
@@ -204,7 +204,12 @@ Here are the concrete, technically verified shifts now active on your life:
 4. **Reclaimed Attention Sovereignty:** Your pocket is silent. No phantom vibrations, no impulse checks, and no background notifications pulling your focus away from real-world tasks.
 5. **Complete Communication Boundaries:** Messaging happens on your terms when you sit down at your workstation, rather than following you into dinner, family time, and sleep.
 6. **Hardware Independence:** Your digital life no longer depends on proprietary operating system telemetry or vendor-locked surveillance architectures.
-7. **Pragmatic Compromise Achieved:** You stay 100% connected to Indian society, banking, and professional networks—while systematically blocking the surveillance pipelines that target everyday citizens.
+7. **Pragmatic Compromise Achieved:** You remain fully connected to Indian society, banking, and professional networks—while systematically shutting down the surveillance pipelines that target everyday citizens.
+
+---
+
+> **Reporting Container Incompatibilities or Changed Tools:**  
+> If an upstream Linux kernel, Waydroid build, or local document tool behaves differently on your hardware, please [open an issue on GitHub](https://github.com/rack0911/digital-swaraj/issues) with your hardware and OS specs.
 
 ---
 

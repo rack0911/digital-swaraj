@@ -1,8 +1,8 @@
 # Level 6: Street & FinTech Defense (Real-World Consumer Protocols) 
 
 > **Document Status:** Verified (Current as of October 2026)  
-> **Target Regulations:** Ministry of Consumer Affairs Advisory (May 23, 2023), UIDAI Aadhaar Regulations (Masked Aadhaar), RBI Digital Lending Directions  
-> **Official Citations:** [PIB Delhi: Retail Phone Number Advisory](https://pib.gov.in/PressReleasePage.aspx?PRID=1926639), [UIDAI Aadhaar Regulations Circular on Masked Aadhaar](https://uidai.gov.in/images/resource/FAQ_Aadhaar_Paperless_Offline_e-KYC.pdf), [RBI Master Direction - Digital Lending (2022)](https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx?Id=12382)
+> **Supported Operational Scope:** Indian Consumer Retail, Hotels & Transit KYC, UPI Merchant Ecosystem (NPCI / RBI)  
+> **Primary Statutory & Regulatory Citations:** [Ministry of Consumer Affairs Advisory (PIB PRID 1926639)](https://pib.gov.in/PressReleasePage.aspx?PRID=1926639), [UIDAI Aadhaar Offline Verification Regulations](https://uidai.gov.in/images/resource/FAQ_Aadhaar_Paperless_Offline_e-KYC.pdf), [RBI Digital Lending Directions](https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx?Id=12382), [Consumer Protection Act, 2019 Section 2(47)](https://consumeraffairs.nic.in/acts-and-rules/consumer-protection-act-2019)
 
 ---
 
@@ -49,11 +49,11 @@ A **Masked Aadhaar** legally masks the first 8 digits of your Aadhaar number (e.
 4. Download the password-protected PDF (Password: First 4 letters of your name in CAPITALS + Year of Birth).
 5. Print 5 copies of this Masked Aadhaar and keep them in your wallet for all offline identity verification.
 
-**The Legal Fact:** Under UIDAI regulations and official circulars, a Masked Aadhaar is a **fully valid, legally recognized identity document** for offline verification across hotels, telecom KYC, airports, and private institutions.
+**The Legal Fact:** Under the [UIDAI Aadhaar (Authentication and Offline Verification) Regulations](https://uidai.gov.in/images/resource/FAQ_Aadhaar_Paperless_Offline_e-KYC.pdf), an officially downloaded Masked Aadhaar is a legally recognized, valid identity document for offline verification across hotels, telecom KYC, airport security, and private establishments.
 
 > [!NOTE]
 > **Digital Upload Tip (Never Use Shady Web Converters):**  
-> When submitting identity PDFs or income proofs to government portals with arbitrary file-size caps, **never upload unencrypted documents to online sites like iLovePDF or Smallpdf**. Use local, private tools like **[Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF)** and **[Squoosh](https://squoosh.app/)** (detailed in [Level 7](07_LEVEL_SEVEN_SOVEREIGN_WORKSTATION.md)) to compress and redact documents 100% on your own device.
+> When submitting identity PDFs or income proofs to government portals with arbitrary file-size caps, **never upload unencrypted documents to online sites like iLovePDF or Smallpdf**. Use local tools like **[Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF)** and **[Squoosh](https://squoosh.app/)** (detailed in [Level 7](07_LEVEL_SEVEN_SOVEREIGN_WORKSTATION.md)) to compress and redact documents locally in memory on your own device.
 
 ---
 
@@ -62,7 +62,7 @@ A **Masked Aadhaar** legally masks the first 8 digits of your Aadhaar number (e.
 As documented in Level 0, retail cashiers frequently assert: *"Sir, without mobile number the system will not generate the bill."*
 
 ### The Regulatory Reality:
-On **May 23, 2023**, the **Ministry of Consumer Affairs (Department of Consumer Affairs, Government of India)** issued an explicit nationwide advisory:
+On May 23, 2023, the **Ministry of Consumer Affairs (Department of Consumer Affairs, Government of India)** issued an explicit nationwide advisory ([PIB Press Release PRID 1926639](https://pib.gov.in/PressReleasePage.aspx?PRID=1926639)):
 > *"Retailers are legally prohibited from insisting on a consumer's mobile number as a mandatory pre-condition for generating a tax invoice."*
 
 Under the Consumer Protection Act, 2019, denying a transaction or conditioning the sale of goods on the surrender of personal contact details constitutes an unfair trade practice.
@@ -107,14 +107,14 @@ Whenever registering an address on a shopping or food delivery app, split your n
 
 #### Why Honey-Token Names Are Powerful:
 1. **Physical Identity Shielding:** Delivery riders and courier personnel only see *"Rizz Swiggy"* on the slip. Your real family surname and social media footprint remain completely shielded.
-2. **Breach Attribution:** If you ever receive an unsolicited telemarketing call, scam loan pitch, or fake lottery SMS asking for *"Mr. Rizz Flipkart"*, you know with **100% mathematical certainty** that Flipkart's logistics partner or customer database was leaked or sold your record.
+2. **Breach Attribution:** If you ever receive an unsolicited telemarketing call, loan solicitation, or scam message asking for *"Mr. Rizz Flipkart"*, you possess an unambiguous audit trail establishing that the platform or its logistics partner exposed your contact record.
 
 ### Part 3: Thermal Shipping Label Sanitization
 Thermal paper labels attached to courier boxes contain high-density plaintext data: your name, primary phone number, and address.
 
 #### The 5-Second Defacing Protocol:
 1. Never throw an intact delivery box into communal building corridors or municipal trash chutes.
-2. **The Sanitizer Trick:** Applying 2 drops of standard alcohol hand sanitizer to a thermal label dissolves the black ink completely in 3 seconds, leaving a blank white sheet.
+2. **The Sanitizer Method:** Applying a small drop of alcohol-based hand sanitizer to a thermal label reacts with the leuco dye, turning the printed text transparent and obscuring your phone number and address.
 3. **The Marker / Tear Method:** Alternatively, use a broad permanent marker to black out the phone number and barcode, or peel off the sticker and tear it into small pieces before discarding the box.
 
 ---
@@ -149,4 +149,8 @@ Here are the concrete, technically verified shifts now active in your real-world
 
 ---
 **Support the Project:** Star this repository on GitHub to help other Indian developers, students, and citizens discover it.
+> **Reporting Consumer Rights Incidents or Inaccuracies:**  
+> Have you encountered a retail Point-of-Sale system that refuses cash codes, or an updated UIDAI verification advisory? [Open an issue on GitHub](https://github.com/rack0911/digital-swaraj/issues).
+
+---
 **Proceed to [Level 7: The Sovereign Workstation](07_LEVEL_SEVEN_SOVEREIGN_WORKSTATION.md)**

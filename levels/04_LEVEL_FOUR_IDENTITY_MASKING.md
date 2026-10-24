@@ -1,8 +1,8 @@
 # Level 4: The Disposable Identity (Email Aliasing, Phone Hygiene & Credential Isolation)
 
 > **Document Status:** Verified (Current as of October 2026)  
-> **Regulatory Citations:** [TRAI Telecom Commercial Communications Customer Preference Regulations, 2018 (TCCCPR 2018)](https://trai.gov.in/sites/default/files/Regulation_19072018.pdf), [National Customer Preference Register (NCPR)](https://trai.gov.in/faqcategory/national-customer-preference-register-ncpr)  
-> **Technical Standards:** RFC 6238 (TOTP: Time-Based One-Time Password Algorithm), RFC 9807 (OPAQUE Asymmetric PAKE)
+> **Supported Platform Scope:** Android (Aegis / Bitwarden / Proton Pass), iOS, Web Browsers, Indian Cellular Networks (Jio, Airtel, Vi, BSNL)  
+> **Primary Technical & Regulatory Citations:** [TRAI TCCCPR 2018 Gazette Notification](https://trai.gov.in/sites/default/files/Regulation_19072018.pdf), [TRAI National Customer Preference Register Specification](https://trai.gov.in/faqcategory/national-customer-preference-register-ncpr), [RFC 6238 (TOTP Algorithm)](https://datatracker.ietf.org/doc/html/rfc6238), [RFC 9807 (OPAQUE Protocol)](https://datatracker.ietf.org/doc/html/rfc9807)
 
 ---
 
@@ -14,7 +14,7 @@
 
 | Vector | Current Vulnerable Default | The Zero-Effort Fix | Result |
 | :--- | :--- | :--- | :--- |
-| **Email Address** | Giving out primary personal email everywhere | **Email Aliasing & Burners** (DuckDuckGo / Proton / Emailnator) | Generate disposable aliases and 10-min inboxes; kill spam permanently. |
+| **Email Address** | Giving out primary personal email everywhere | **Email Aliasing & Burners** (DuckDuckGo / Proton / Emailnator) | Generate disposable aliases and ephemeral inboxes; cut down spam and isolate breaches. |
 | **Banking Email** | Using custom domains on PSU bank portals | Keep one clean primary email strictly for banks | Prevents Finacle / Core Banking regex validation errors on official records. |
 | **Mobile Number** | Surrendering real number to commercial databases | **TRAI Full DND (Category 0)** & 1909 Enforcement | Legally blocks commercial telemarketing; triggers statutory blacklisting for violators. |
 | **Passwords** | Reusing 2–3 password variations | **Bitwarden** or **Proton Pass** | Generates unique 16+ character passwords with zero-knowledge encryption. |
@@ -40,7 +40,7 @@ Your primary email address is your master digital passport. Once data brokers, m
 Instead of giving out your real address, deploy an **Email Aliasing Service**. It acts as an intelligent privacy shield between your real inbox and the outside world:
 1. **On-Demand Aliases:** When a website asks for an email, generate a unique, throwaway alias on the fly (e.g., `shop9274@duck.com` or `order.831@passmail.net`).
 2. **Tracker Stripping:** Incoming emails sent to the alias are received by the aliasing service, stripped of embedded tracking pixels and spyware beacons, and cleanly forwarded to your real primary inbox.
-3. **Instant Deactivation:** If a merchant begins spamming you or sells your address to data brokers, click **"Deactivate Address"** in the email header or web dashboard. That alias dies permanently, while your real email remains completely untouched.
+3. **Instant Deactivation:** If a merchant begins spamming you or sells your address to data brokers, click **"Deactivate Address"** in the email header or web dashboard. That alias is deactivated, stopping future incoming messages while keeping your real email address unexposed.
 
 ---
 
@@ -48,10 +48,10 @@ Instead of giving out your real address, deploy an **Email Aliasing Service**. I
 
 | Tool | Default Format | Best For | Key Strengths |
 | :--- | :--- | :--- | :--- |
-| **[DuckDuckGo Email Protection](https://duckduckgo.com/email/)** | `@duck.com` | Standalone setup across any browser | 100% free, unlimited aliases, automatic email spy pixel stripping, works with any inbox. |
+| **[DuckDuckGo Email Protection](https://duckduckgo.com/email/)** | `@duck.com` | Standalone setup across any browser | Free tier with unlimited alias generation, email spy pixel stripping, works with any inbox. |
 | **[Proton Pass / SimpleLogin](https://proton.me/pass)** | `@passmail.net` / `@simplelogin.com` | Integrated password manager + email masks | Generates password and alias simultaneously, open-source, Swiss privacy laws, optional PGP encryption. |
 | **[Brave Email Aliases](https://brave.com/)** | Native dummy forwarding | Native Brave Browser users | Built directly into Brave settings; zero third-party extensions required; uses OPAQUE zero-knowledge auth. |
-| **[Addy.io](https://addy.io/)** *(formerly AnonAddy)* | `@anonaddy.me` or custom handle | Open-source purists & power users | 100% FOSS, self-hostable, granular recipient rules, and custom domain support. |
+| **[Addy.io](https://addy.io/)** *(formerly AnonAddy)* | `@anonaddy.me` or custom handle | Open-source purists & power users | Verified open-source (MIT), self-hostable, granular recipient rules, and custom domain support. |
 
 #### Detailed Breakdown of Each Option:
 
@@ -76,7 +76,7 @@ Instead of giving out your real address, deploy an **Email Aliasing Service**. I
 
 #### Option D: [Addy.io](https://addy.io/) (Open-Source Community Standard)
 - **Format:** `@anonaddy.me` or your own custom domain
-- **How It Works:** An independent, 100% open-source email forwarding service built specifically for user autonomy.
+- **How It Works:** An independent, open-source email forwarding service built specifically for user autonomy.
 - **Granular Control:** Offers full control over send/reply headers, multiple recipient destinations, and custom domain mapping.
 - **Self-Hostable:** Can be run on your own private server if you require complete infrastructure independence.
 
@@ -204,8 +204,8 @@ Whenever an online service (Google, GitHub, Bitwarden, Amazon, social media, cry
 
 ### Recommended Privacy-First Tools
 
-#### The Gold Standard: [Aegis Authenticator](https://getaegis.com/) (Android FOSS)
-- **100% Offline & Zero Telemetry:** Aegis requests zero network permissions. It is mathematically impossible for the app to leak your 2FA secret seeds over the internet.
+#### The Recommended Standard: [Aegis Authenticator](https://getaegis.com/) (Android FOSS)
+- **Offline by Design:** Aegis does not declare the `android.permission.INTERNET` permission in its Android manifest. The operating system sandbox prevents the app from establishing network connections, ensuring 2FA seeds remain strictly on local storage.
 - **Biometric & Encrypted Vault:** Your TOTP tokens are stored on your device inside an AES-256-GCM encrypted database unlocked via your fingerprint or PIN.
 - **Secure Local Backups:** Allows exporting an encrypted backup file to local storage or an SD card. When switching phones, simply restore the file—no cloud accounts required.
 - *(For iOS / Multi-Device Sync: Consider **[Ente Auth](https://ente.io/auth/)**, a verified open-source, end-to-end encrypted cross-platform alternative).*
@@ -227,7 +227,7 @@ Both major privacy password managers can store TOTP seeds and generate 2FA codes
 
 - **Bitwarden:**
  - Integrated TOTP autofill is an efficient workflow (it automatically copies your 2FA code to your clipboard upon autofilling your password).
- - **Pricing Detail:** On the official Bitwarden cloud service, integrated TOTP storage is a premium feature requiring approximately **~$10/year (~$1–2 per month)** at the time of writing. If you self-host your own server (using [Vaultwarden](https://github.com/dani-garcia/vaultwarden)), integrated TOTP is completely free.
+ - **Pricing Detail:** On the official Bitwarden cloud service, integrated TOTP storage is a premium feature requiring approximately **~$10/year (~$1–2 per month)** at the time of writing. If you self-host your own server (using [Vaultwarden](https://github.com/dani-garcia/vaultwarden)), integrated TOTP is included at no extra license fee.
 - **Proton Pass:**
  - Integrated 2FA code generation is available within the Proton ecosystem (included under Proton Pass Plus / Unlimited subscriptions).
 
@@ -240,8 +240,10 @@ Both major privacy password managers can store TOTP seeds and generate 2FA codes
 
 ## Technical Boundaries & Limitations of Level 4
 
-* **Email Aliasing vs. Physical Delivery Records:** While email masks (DuckDuckGo, SimpleLogin, Addy.io) strip tracking pixels and prevent your master address from leaking in merchant database breaches, they **cannot conceal your physical shipping address, real name, or payment card billing details** entered on checkout pages.
-* **TRAI DND vs. Unregistered Telemarketers (UTMs):** Activating TRAI Category 0 Full DND legally binds all 2.5+ lakh registered telemarketers (Principal Entities) operating over 140-series sender headers. However, **unregistered rogue entities calling from personal 10-digit SIM cards** bypass automated carrier filters. Remediation requires filing a statutory complaint via SMS `COMP TEL NO ...` to 1909 or the TRAI DND 3.0 app within 3 days to initiate telecom carrier blacklisting.
+* **Email Aliasing Provider Reliance:** Utilizing an aliasing service (DuckDuckGo, SimpleLogin/Proton Pass, Addy.io) introduces an intermediary forwarder into your communications architecture. If the provider experiences downtime or technical latency, critical verification emails may be delayed. Furthermore, if your master aliasing account is compromised or locked, inbound routing across all associated masks is interrupted.
+* **Email Transit Encryption Limits:** Email masks strip embedded tracking beacons and forward clean messages. However, transit from the original merchant to the alias provider occurs over standard SMTP with opportunistic STARTTLS in cleartext to the provider's MX server. To achieve cryptographic privacy at rest, configure PGP public-key encryption on your aliasing dashboard so inbound emails are encrypted before forwarding.
+* **Email Aliasing vs. Physical Delivery Records:** While email masks strip tracking pixels and prevent your master address from leaking in merchant database breaches, they **cannot conceal your physical shipping address, real name, or payment card billing details** entered on checkout pages.
+* **TRAI DND vs. Unregistered Telemarketers (UTMs):** Activating TRAI Category 0 Full DND under [TRAI TCCCPR 2018](https://trai.gov.in/sites/default/files/Regulation_19072018.pdf) legally binds all 2.5+ lakh registered telemarketers (Principal Entities) operating over 140-series sender headers. However, **unregistered rogue entities calling from personal 10-digit SIM cards** bypass automated carrier filters. Remediation requires filing a statutory complaint via SMS `COMP TEL NO ...` to 1909 or the TRAI DND 3.0 app within 3 days to initiate telecom carrier blacklisting.
 * **Burner Inboxes vs. Session Expiry & Recovery:** 10-minute temporary inboxes (Emailnator, 10MinuteMail) do not retain history. If an account requires ongoing password resets, account verification, or financial recovery, using an ephemeral burner leads to permanent account loss.
 * **App-Based TOTP vs. Cold Backups:** Offline authenticators (Aegis, Ente Auth) eliminate SMS interception risks. However, if a user loses their phone without keeping an encrypted backup export of their TOTP secret seeds (stored on offline cold media or personal cloud backup), recovering those accounts requires service-specific fallback procedures.
 
@@ -263,11 +265,15 @@ Both major privacy password managers can store TOTP seeds and generate 2FA codes
 Here are the concrete, technically verified shifts now active on your identity:
 
 1. **Breach Compartmentalization:** If an online retailer or food delivery service suffers a database leak, the exposed email is a disposable alias and the password is unique. Your other accounts and real email address remain completely secure.
-2. **One-Click Spam Termination:** Unwanted marketing broadcasts can be permanently killed by deactivating the specific alias without needing to unsubscribe or block senders.
+2. **One-Click Spam Termination:** Unwanted marketing broadcasts can be stopped by deactivating the specific alias without needing to interact with suspicious unsubscribe links.
 3. **Zero Inbox Clutter from One-Offs:** Downloading whitepapers or reading gated articles leaves zero trace in your inbox—the burner address self-destructs within minutes.
 4. **Statutory Telemarketing Defense:** Your phone number is registered on TRAI Category 0 Full DND, creating legal liability and disconnection risks for unsolicited telemarketers.
-5. **Legacy Portal Stability:** Your critical banking, tax, and government notifications remain 100% operational on standard portals without regex validation errors.
+5. **Legacy Portal Stability:** Your critical banking, tax, and government notifications remain fully operational on standard portals without regex validation errors.
 6. **Offline Authentication Resiliency:** Two-factor authentication codes generate locally on your phone without waiting for delayed SMS network deliveries.
+
+---
+> **Reporting Inaccuracies or Changed Regulations:**  
+> Have you identified an updated TRAI regulation, a modified DND registration code, or an issue with an aliasing provider? [Open an issue on GitHub](https://github.com/rack0911/digital-swaraj/issues).
 
 ---
 [Proceed to Level 5: The Mobile FOSS Stack](05_LEVEL_FIVE_MOBILE_FOSS_STACK.md)

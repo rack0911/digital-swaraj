@@ -1,8 +1,8 @@
 # Level 1: The Zero-Effort Shield (Browser, Search & DNS) 
 
 > **Document Status:** Verified (Current as of October 2026)  
-> **Technical Baseline:** Android 13/14/15, Linux Kernel 6.x, Chromium / Gecko (Firefox ESR)  
-> **Official Citations:** [RFC 7858 (DNS over TLS)](https://datatracker.ietf.org/doc/html/rfc7858), [RFC 8484 (DNS over HTTPS)](https://datatracker.ietf.org/doc/html/rfc8484), [CERT-In Directions No. 20(3)/2022-CERT-In](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf), [CCPA Guidelines for Prevention of Dark Patterns (2023)](https://consumeraffairs.nic.in/sites/default/files/CCPA_Notification.pdf)
+> **Supported Device Scope:** Android 12, 13, 14, 15; Chromium & Gecko (Firefox ESR); Linux Kernel 6.x; macOS 13+; Windows 11  
+> **Primary Technical & Regulatory Citations:** [RFC 7858 (DNS-over-TLS)](https://datatracker.ietf.org/doc/html/rfc7858), [RFC 8484 (DNS-over-HTTPS)](https://datatracker.ietf.org/doc/html/rfc8484), [RFC 9460 (Encrypted Client Hello)](https://datatracker.ietf.org/doc/html/rfc9460), [CERT-In Directions No. 20(3)/2022-CERT-In](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf)
 
 ---
 
@@ -49,7 +49,7 @@ On desktop workstations, websites track you across tabs using shared session coo
 
 **The Solution:** Install the official **[Firefox Multi-Account Containers](https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/)** extension.
 - **Cryptographic Cookie Sandboxes:** It separates your browser tabs into color-coded isolated containers (e.g., *Personal*, *Work*, *Banking*, *Shopping*).
-- **Session Compartmentalization:** Cookies, local storage, and cache in your *Shopping* container cannot be accessed by tabs inside your *Personal* or *Work* containers. You can stay logged into Google in one container while keeping the rest of your web browsing completely invisible to Google's tracking scripts.
+- **Session Compartmentalization:** Cookies, local storage, and cache in your *Shopping* container cannot be accessed by tabs inside your *Personal* or *Work* containers. You can maintain an active session in one container while isolating cookie jars and local storage so third-party tracking scripts in other containers cannot correlate your web sessions.
 
 ---
 
@@ -112,7 +112,7 @@ This plaintext visibility is what enables network-level traffic logging, domain 
 
 ### Step 1: Enable Native Android Private DNS (Mobile Shield)
 
-You do **not** need to install a heavy third-party VPN app that drains your battery. Android has native support for **DNS-over-TLS (DoT)** built directly into the operating system.
+You do **not** need to install a heavy third-party VPN app that drains your battery. Android has native support for **DNS-over-TLS (DoT)** ([RFC 7858](https://datatracker.ietf.org/doc/html/rfc7858)) built directly into the operating system settings since Android 9.
 
 #### Setup in 60 Seconds:
 1. Open your Android phone's **Settings**.
@@ -157,7 +157,7 @@ By updating the DNS addresses pushed by your home Wi-Fi modem's **DHCP Server**,
 For high-risk environments (public café Wi-Fi, untrusted networks, or bypassing network-level ISP throttling), an encrypted Virtual Private Network (VPN) tunnels all internet traffic through an encrypted pipe.
 
 ### The Indian Regulatory Reality: CERT-In April 2022 Directives
-On **April 28, 2022**, India's national cyber emergency agency (**CERT-In**, under MeitY) issued landmark cybersecurity directives (Directions under Section 70B of the IT Act):
+On April 28, 2022, the **Indian Computer Emergency Response Team (CERT-In)** issued binding cybersecurity directions ([Directions No. 20(3)/2022-CERT-In under Section 70B(6)](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf)):
 - **Mandatory 5-Year User Logging:** Any VPN provider operating **physical servers within Indian territory** is legally compelled to collect, maintain, and surrender user personal records for 5 years—including verified subscriber names, physical residential addresses, contact phone numbers, assigned IP addresses, and timestamps.
 - **The Impact on Privacy:** Under these rules, any commercial VPN running physical hardware in India cannot mathematically offer a true "no-logs" service.
 
@@ -168,7 +168,7 @@ In direct response to CERT-In mandates, verified international privacy VPNs shut
 | :--- | :--- | :--- | :--- |
 | **[Mullvad VPN](https://mullvad.net/)** *(Gold Standard)* | Anonymous Account ID | Sweden | **Zero Personal Data:** Generates a random 16-digit account number. Requires no email, no name, and no phone number. Accepts cash via post or cryptocurrency. |
 | **[Proton VPN](https://protonvpn.com/)** *(Best Free Tier)* | Free & Paid | Switzerland | **Swiss Data Laws:** Independently audited zero-logs policy; offers an unlimited free tier without data caps or speed throttling. |
-| **[IVPN](https://www.ivpn.net/)** *(Open-Source Purist)* | Anonymous Account ID | Gibraltar | **100% Open-Source:** Requires zero email to sign up; independently audited annual no-log architecture. |
+| **[IVPN](https://www.ivpn.net/)** *(Open-Source Purist)* | Anonymous Account ID | Gibraltar | **Audited Open-Source Apps:** Requires no email to sign up; independently audited annual no-log architecture. |
 
 > **Usage Rule:** Use an offshore zero-log VPN when on public Wi-Fi or when researching sensitive topics, but disable it when accessing Indian PSU banking portals (SBI, PNB) or government tax portals to avoid automated anti-fraud IP security blocks.
 
@@ -190,10 +190,12 @@ To verify that your Level 1 defenses are functioning, open your new browser and 
 
 ## Technical Boundaries & Limitations of Level 1
 
-* **DNS Encryption vs. Destination IP and SNI Exposure:** Encrypted DNS (DNS-over-TLS via RFC 7858 or DNS-over-HTTPS via RFC 8484) encrypts domain name resolution queries, preventing intermediate ISPs and local network sniffers from logging plaintext UDP Port 53 lookups. However, **DNS encryption does not conceal destination IP addresses**. Furthermore, during the subsequent TLS connection handshake, unless both the client and destination server support **Encrypted Client Hello (ECH / RFC 9460)**, the Server Name Indication (SNI) header is transmitted in plaintext, allowing an upstream network operator with deep-packet inspection (DPI) to identify the target domain.
-* **Browser Isolation vs. Authenticated User Sessions:** Privacy-hardened browsers (Brave, Firefox with Multi-Account Containers) isolate cross-site cookies, randomize canvas/audio fingerprints, and strip URL referral parameters. However, **they do not anonymize activity conducted while logged into a central user account**. Logging into a personal Google, Amazon, or social media account inside an isolated container still associates all queries, clicks, and session timestamps directly with your account profile.
+* **DNS Encryption vs. Destination IP and SNI Exposure:** Encrypted DNS (DNS-over-TLS via [RFC 7858](https://datatracker.ietf.org/doc/html/rfc7858) or DNS-over-HTTPS via [RFC 8484](https://datatracker.ietf.org/doc/html/rfc8484)) encrypts domain name resolution queries, preventing intermediate ISPs and local network sniffers from logging plaintext UDP Port 53 lookups. However, **DNS encryption does not conceal destination IP addresses**. Furthermore, during the subsequent TLS connection handshake, unless both the client and destination server support **Encrypted Client Hello ([RFC 9460 ECH](https://datatracker.ietf.org/doc/html/rfc9460))**, the Server Name Indication (SNI) header is transmitted in cleartext, allowing an upstream network operator with deep-packet inspection (DPI) to identify the target domain.
+* **In-Stream Ads Cannot Be Blocked by DNS:** Network-level DNS filtering blocks domains hosting telemetry and standalone banner ad servers. It **cannot** filter advertisements that are served from the exact same domain or content stream as the primary media—such as YouTube preroll video ads, Instagram sponsored reels, or Google Search sponsored results. These require browser-level content blockers (e.g., uBlock Origin or Brave Shields).
+* **Captive Portal & Port 853 Restrictions:** Android Private DNS operates over TCP Port 853. Some public Wi-Fi access points (in hotels, airports, or university campuses) actively block outbound Port 853 or require visiting a captive login portal before resolving internet DNS. If your device displays *"Private DNS server cannot be accessed"*, set Private DNS to *Automatic* to log into the portal, then re-enable your provider.
+* **The VPN Trust Shift & Speed Penalty:** A VPN does not create complete anonymity; it fundamentally **shifts trust from your Internet Service Provider to the VPN operator**. You must trust that the VPN provider does not maintain connection timestamps or inspect decrypted transit traffic. Furthermore, routing traffic through overseas privacy jurisdictions (Singapore, Switzerland, Sweden) introduces 30–120ms of network latency.
 * **VPN Egress vs. Domestic Banking Services:** Commercial zero-log VPNs operating outside Indian jurisdiction tunnel traffic securely, masking your residential IP from destination web servers. However, major Indian public and private sector banks (SBI, HDFC, ICICI), UPI payment gateways, and statutory portals (Income Tax Department, EPFO) employ automated fraud-detection filters that routinely block or flag incoming traffic from foreign or commercial VPN datacenter IP ranges. Accessing these services frequently requires split-tunneling or temporary VPN suspension.
-* **Router-Level DNS (Port 53 Fallback):** Setting custom DNS server IPs on a standard home Wi-Fi modem routes network queries away from default ISP resolvers for connected devices. However, standard consumer router firmware transmits these queries across the WAN interface using unencrypted **plaintext UDP Port 53** unless the router runs custom firmware (e.g., OpenWrt) with native DNS-over-TLS or a dedicated local encrypted forwarder (such as AdGuard Home or Pi-hole with upstream DoT).
+* **Browser Isolation vs. Authenticated User Sessions:** Privacy-hardened browsers (Brave, Firefox with Multi-Account Containers) isolate cross-site cookies, randomize canvas/audio fingerprints, and strip URL referral parameters. However, **they do not anonymize activity conducted while logged into a central user account**. Logging into a personal Google, Amazon, or social media account inside an isolated container still associates all queries, clicks, and session timestamps directly with your account profile.
 
 ---
 
@@ -220,4 +222,8 @@ Here are the concrete, technically verified shifts now active on your device:
 
 ---
 **Support the Project:** Star this repository on GitHub to help other Indian developers, students, and citizens discover it.
+> **Reporting Changed Menus or Inaccuracies:**  
+> If an Android Private DNS path, browser extension, or DNS resolver address has changed on your device, please [open an issue on GitHub](https://github.com/rack0911/digital-swaraj/issues) with your device model and OS version.
+
+---
 **Proceed to [Level 2: Mobile Radio & Sensor Hygiene](02_LEVEL_TWO_RADIO_AND_SENSOR_HYGIENE.md)**
