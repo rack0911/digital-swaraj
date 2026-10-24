@@ -1,5 +1,11 @@
 # Level 6: Street & FinTech Defense (Real-World Consumer Protocols) 
 
+> **Document Status:** Verified (Current as of October 2026)  
+> **Target Regulations:** Ministry of Consumer Affairs Advisory (May 23, 2023), UIDAI Aadhaar Regulations (Masked Aadhaar), RBI Digital Lending Directions  
+> **Official Citations:** [PIB Delhi: Retail Phone Number Advisory](https://pib.gov.in/PressReleasePage.aspx?PRID=1926639), [UIDAI Aadhaar Regulations Circular on Masked Aadhaar](https://uidai.gov.in/images/resource/FAQ_Aadhaar_Paperless_Offline_e-KYC.pdf), [RBI Master Direction - Digital Lending (2022)](https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx?Id=12382)
+
+---
+
 > ###  Time Required: 15 Minutes | Difficulty: Intermediate | Workflow Disruption: Minimal
 > 
 > *Digital sovereignty is not tested in server rooms; it is tested at the supermarket billing counter, the hotel reception desk, and the neighborhood tea stall. In Level 6, we translate digital privacy into real-world consumer protocols—exercising your statutory rights under Indian law and locking down your financial identity.*
@@ -110,6 +116,14 @@ Thermal paper labels attached to courier boxes contain high-density plaintext da
 1. Never throw an intact delivery box into communal building corridors or municipal trash chutes.
 2. **The Sanitizer Trick:** Applying 2 drops of standard alcohol hand sanitizer to a thermal label dissolves the black ink completely in 3 seconds, leaving a blank white sheet.
 3. **The Marker / Tear Method:** Alternatively, use a broad permanent marker to black out the phone number and barcode, or peel off the sticker and tear it into small pieces before discarding the box.
+
+---
+
+## Technical Boundaries & Limitations of Level 6
+
+* **Masked Aadhaar vs. Statutory Portals:** Under UIDAI regulations, Masked Aadhaar is a legally valid identity document for physical offline verification (hotels, security desks, private retail, and telecom KYC). However, **statutory financial and government platforms** (Income Tax e-Filing, EPFO UAN linking, bank account opening via Video KYC / C-KYC) legally require the full 12-digit UID for automated cryptographic Aadhaar-based OTP authentication with UIDAI Central Identities Data Repository (CIDR).
+* **Retail Phone Number Refusal vs. Warranty Records:** Declining to provide a phone number at retail checkout is legally protected under the Ministry of Consumer Affairs May 2023 directive. However, if purchasing durable consumer electronics where warranty claims are tracked by phone number, ensure the cashier prints the item serial number (IMEI / S/N) directly on the physical cash invoice to preserve statutory warranty claims without surrendering your phone number.
+* **Direct Bank UPI vs. Telecom SIM Binding:** BHIM and direct banking apps decouple transaction metadata from commercial ad-tech brokers. However, all UPI applications in India are bound by NPCI architecture requiring device-binding via SMS sent from the registered SIM card on the device.
 
 ---
 

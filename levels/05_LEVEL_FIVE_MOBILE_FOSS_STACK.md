@@ -1,5 +1,11 @@
 # Level 5: The Mobile FOSS Stack (Clean Open-Source Replacements)
 
+> **Document Status:** Verified (Current as of October 2026)  
+> **Technical Baseline:** Android 13/14/15, ADB Platform-Tools 35+, AppOps Runtime Permissions  
+> **Official Citations:** [Android Developer: SmsRetriever API](https://developers.google.com/identity/sms-retriever/overview), [Android Developer: AppOpsManager](https://developer.android.com/reference/android/app/AppOpsManager), [Android Open Source Project (AOSP) Package Management](https://source.android.com/docs/core/permissions/runtime_perms)
+
+---
+
 > ###  Time Required: 15 Minutes | Difficulty: Intermediate | Workflow Disruption: Low
 > 
 > *The average smartphone in India comes pre-loaded with proprietary utilities: keyboards that transmit keystroke telemetry to cloud servers, gallery apps with full-screen banner ads, dialers that sync call logs, and file-sharing utilities riddled with bloatware. In Level 5, we replace these daily tools with clean, lightweight Free and Open Source Software (FOSS) that respects your privacy and contains zero advertising.*
@@ -272,6 +278,14 @@ adb shell pm disable-user --user 0 com.tools.cit
 ### What Happens During Software Updates?
 * **Monthly Security Patches:** Do **not** restore these packages. Android preserves user package restrictions across minor security updates.
 * **Major OS Upgrades (e.g., Android 14 → 15):** The OEM may re-provision default system packages. If this occurs, simply reconnect your phone to your computer and re-run the script above—it takes less than 10 seconds to re-silence the entire apparatus.
+
+---
+
+## Technical Boundaries & Limitations of Level 5
+
+* **ADB Package Removal (`--user 0`) vs. System Image Partitioning:** Running `pm uninstall -k --user 0` removes the package from the primary user space (user 0), stopping execution, background services, and storage access. However, because stock Android system partitions (`/system`, `/product`, `/system_ext`) are mounted read-only (`dm-verity`), the underlying APK files remain in storage and can be re-provisioned if a factory reset occurs or after major OS version upgrades (e.g., Android 14 to 15).
+* **FCM Push Notifications vs. Google Play Services:** FOSS apps downloaded from F-Droid (like Thunderbird or Signal) implement their own background polling or persistent websockets. However, many proprietary third-party apps (banking, food delivery, ride-hailing) rely exclusively on Google Cloud Messaging / Firebase Cloud Messaging (FCM). Completely uninstalling Google Play Services breaks push notifications for these apps unless running on an OS with sandboxed Google Play (like GrapheneOS) or microG.
+* **Banking / UPI Attestation (Play Integrity / SafetyNet):** Replacing stock dialers, keyboards, and browsers with FOSS apps does not affect UPI apps (BHIM, PhonePe, Google Pay). However, attempting to root your phone or unlock the bootloader to physically delete system APKs trips Android's hardware-backed Play Integrity API (`MEETS_DEVICE_INTEGRITY`), which breaks banking and UPI authentication. Non-root ADB debloating as documented maintains 100% Play Integrity.
 
 ---
 

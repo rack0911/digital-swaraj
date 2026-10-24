@@ -1,5 +1,11 @@
 # Level 4: The Disposable Identity (Email Aliasing, Phone Hygiene & Credential Isolation)
 
+> **Document Status:** Verified (Current as of October 2026)  
+> **Regulatory Citations:** [TRAI Telecom Commercial Communications Customer Preference Regulations, 2018 (TCCCPR 2018)](https://trai.gov.in/sites/default/files/Regulation_19072018.pdf), [National Customer Preference Register (NCPR)](https://trai.gov.in/faqcategory/national-customer-preference-register-ncpr)  
+> **Technical Standards:** RFC 6238 (TOTP: Time-Based One-Time Password Algorithm), RFC 9807 (OPAQUE Asymmetric PAKE)
+
+---
+
 > **Level Goal:** Decouple your real contact identity from the commercial internet. If a service is breached, only a throwaway alias is exposed—while your real email, phone number, and master credentials remain invisible.
 
 ---
@@ -229,6 +235,15 @@ Both major privacy password managers can store TOTP seeds and generate 2FA codes
 > **The Security Trade-Off: Convenience vs. Compartmentalization** 
 > Storing both your master password and your 2FA secret seed in the same password manager means a single compromised master password gives an attacker access to *both* authentication factors. 
 > **Recommended Best Practice:** Keep high-value accounts (your primary email vault, password manager master account, and primary financial tools) isolated inside a standalone offline authenticator like **Aegis**.
+
+---
+
+## Technical Boundaries & Limitations of Level 4
+
+* **Email Aliasing vs. Physical Delivery Records:** While email masks (DuckDuckGo, SimpleLogin, Addy.io) strip tracking pixels and prevent your master address from leaking in merchant database breaches, they **cannot conceal your physical shipping address, real name, or payment card billing details** entered on checkout pages.
+* **TRAI DND vs. Unregistered Telemarketers (UTMs):** Activating TRAI Category 0 Full DND legally binds all 2.5+ lakh registered telemarketers (Principal Entities) operating over 140-series sender headers. However, **unregistered rogue entities calling from personal 10-digit SIM cards** bypass automated carrier filters. Remediation requires filing a statutory complaint via SMS `COMP TEL NO ...` to 1909 or the TRAI DND 3.0 app within 3 days to initiate telecom carrier blacklisting.
+* **Burner Inboxes vs. Session Expiry & Recovery:** 10-minute temporary inboxes (Emailnator, 10MinuteMail) do not retain history. If an account requires ongoing password resets, account verification, or financial recovery, using an ephemeral burner leads to permanent account loss.
+* **App-Based TOTP vs. Cold Backups:** Offline authenticators (Aegis, Ente Auth) eliminate SMS interception risks. However, if a user loses their phone without keeping an encrypted backup export of their TOTP secret seeds (stored on offline cold media or personal cloud backup), recovering those accounts requires service-specific fallback procedures.
 
 ---
 

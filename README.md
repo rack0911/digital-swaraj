@@ -5,6 +5,12 @@ An open-source, level-by-level operational guide to reclaim your privacy, attent
 
 ---
 
+> **Status:** Verified (Current as of October 2026)  
+> **Technical Baseline:** Android 13/14/15, Linux Kernel 6.x, Chromium / Gecko (Firefox ESR)  
+> **Regulatory Citations:** TRAI TCCCPR 2018, MoCA Advisory (May 23, 2023), RBI Digital Lending Guidelines 2022, UIDAI Aadhaar Act 2016, CERT-In Directions No. 20(3)/2022
+
+---
+
 > [!NOTE]
 > **Zero-Sponsorship & Independence Declaration**
 > None of the tools, browsers, operating systems, apps, or DNS resolvers recommended in this entire playbook are sponsored. There are **zero affiliate links, paid partnerships, or referral codes** anywhere in this repository. All recommendations are based strictly on open-source code audits, technical security standards, and privacy architecture.
@@ -25,6 +31,18 @@ Most privacy guides on the internet are written for users in North America or Eu
 **This playbook is engineered for Indian ground reality.**
 
 It does not ask you to disconnect from modern society, become a paranoid hermit, or live without technology. Instead, it offers a pragmatic, step-by-step roadmap to systematically shut down invasive tracking, defang dark patterns, and regain control over your attention—without breaking the services you rely on every day.
+
+---
+
+## Adoption Paths: Choose Your Depth
+
+Not every citizen needs to install a new desktop operating system or execute ADB commands to achieve meaningful privacy. The playbook is structured into three progressive operational profiles:
+
+| Profile | Target Audience | Time Investment | Focus Areas |
+| :--- | :--- | :--- | :--- |
+| **Path A: The Pragmatic Citizen** | Everyday smartphone users, non-technical family members, students | **15 Minutes** (Zero Technical Skill) | Level 0 baseline audit awareness, Level 1 encrypted DNS (NextDNS/AdGuard DoT), Level 4 TRAI Full DND (SMS `START 0` to 1909), Level 6 statutory phone number refusal at retail counters. |
+| **Path B: The Privacy-Conscious Mobile User** | Working professionals, privacy-aware individuals | **1 Hour** (No Root / No Coding) | Level 2 hardware radio/sensor containment, Level 3 GAFAM account surgery, Level 4 Three-Tier Email Architecture (Sovereign Vault + Managed Aliases), Level 5 Mobile FOSS suite (HeliBoard, Fossify, Aves Libre), Level 6 Masked Aadhaar. |
+| **Path C: The Sovereign Engineer** | Developers, system administrators, advanced users | **Weekend Project** | Level 5 ADB non-root deep-daemon surgery, Level 7 Fedora Linux sovereign workstation, local document tools (Stirling-PDF, Squoosh, Flameshot), and Waydroid containerized messaging. |
 
 ---
 

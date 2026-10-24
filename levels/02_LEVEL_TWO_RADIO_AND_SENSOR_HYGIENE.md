@@ -1,5 +1,11 @@
 # Level 2: Mobile Radio & Sensor Hygiene (Hardware Containment)
 
+> **Document Status:** Verified (Current as of October 2026)  
+> **Technical Baseline:** Android 13/14/15, One UI 6+, HyperOS 1.0+, ColorOS 14+, Funtouch OS 14+  
+> **Official Citations:** [Android Developer: WifiManager.isScanAlwaysAvailable()](https://developer.android.com/reference/android/net/wifi/WifiManager#isScanAlwaysAvailable()), [Android BluetoothLeScanner API](https://developer.android.com/reference/android/bluetooth/le/BluetoothLeScanner), [Android SensorManager Documentation](https://developer.android.com/reference/android/hardware/SensorManager)
+
+---
+
 > ###  Time Required: 10 Minutes | Difficulty: Beginner | Workflow Disruption: Zero
 > 
 > *Level 2 moves beneath the browser to the physical hardware. Modern mobile operating systems are configured by default to keep radio transmitters and motion sensors active in the background—even when you toggle them "Off" in the notification shade. In 10 minutes, we will shut down background radio probing, eliminate lockscreen clickbait bloatware, and restrict sensor access.*
@@ -106,6 +112,14 @@ Mobile operating systems have introduced specialized permissions that casual app
 - Go to `Settings ➔ Apps ➔ Permission Manager ➔ Microphone` (and *Camera*).
 - Ensure every granted app is set strictly to **"Ask every time"** or **"Allow only while using the app"**.
 - Ensure **zero apps** have permission set to *"Allow all the time"*.
+
+---
+
+## Technical Boundaries & Limitations of Level 2
+
+* **Cellular Tower Triangulation (Telco Law):** Disabling Wi-Fi/Bluetooth background scanning and Google Location Accuracy stops *device-side* crowdsourced telemetry from uploading nearby BSSIDs and cell IDs to tech platforms. However, it **does not and cannot prevent cellular tower triangulation by your telecom service provider** (Jio, Airtel, Vi, BSNL). Under the Indian Telegraph Act, 1885 / Telecommunications Act, 2023, and Department of Telecommunications (DoT) license mandates, cellular network operators continuously log the cell tower IDs and Timing Advance (TA) metadata of every connected SIM card for emergency routing and lawful interception.
+* **Assisted GPS (A-GPS) Cold-Lock Times:** Disabling Google Location Accuracy switches your device to autonomous GNSS (GPS, GLONASS, Galileo, NavIC). Inside dense concrete buildings, basements, or urban canyons where direct line-of-sight to orbiting satellites is obstructed, initial satellite fix ("cold-lock") may take 15 to 45 seconds longer compared to Wi-Fi-assisted triangulation.
+* **Motion Sensors vs. Sensor Rate Limiting:** Revoking the `ACTIVITY_RECOGNITION` permission prevents apps from querying Android's high-level activity recognition API (e.g. `STILL`, `WALKING`, `IN_VEHICLE`). Android 12+ limits high-frequency sensor sampling (`SENSOR_DELAY_FASTEST` capped at 200 Hz for unprivileged apps), but physical orientation can still be sampled by foreground apps unless sensors are toggled off globally via the Developer Quick Settings "Sensors Off" tile.
 
 ---
 

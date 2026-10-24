@@ -1,5 +1,11 @@
 # Level 3: GAFAM Account Surgery (Stopping Big Tech Telemetry)
 
+> **Document Status:** Verified (Current as of October 2026)  
+> **Technical Baseline:** Google Account Activity Controls, Gmail Web Settings, LinkedIn Data Privacy Controls, Meta Accounts Center  
+> **Official Citations:** [Google Support: Smart Features & Personalization in Gmail](https://support.google.com/mail/answer/10079371), [Google Support: Manage Web & App Activity](https://support.google.com/accounts/answer/54068), [LinkedIn Help: AI Model Training & Data Privacy](https://www.linkedin.com/help/linkedin/answer/a5153723), [Meta Privacy Center: Off-Meta Activity](https://www.facebook.com/help/122534151433478)
+
+---
+
 > ###  Time Required: 15 Minutes | Difficulty: Beginner | Workflow Disruption: Very Low
 > 
 > *Google, Meta, and Microsoft provide indispensable services, but their default configurations treat your personal communications, locations, and documents as commercial training data. In Level 3, we conduct account-level surgery: disabling telemetry pipelines and opting out of AI model training while preserving complete access to your essential digital accounts.*
@@ -128,6 +134,15 @@ Even if you browse shopping or service websites with your Instagram or Facebook 
 6. Return to the previous screen and tap **Clear previous activity** to unlink past commercial transaction logs.
 
 **The Technical Shift:** External websites and shopping portals can no longer tie your off-platform browsing back to your Meta user account.
+
+---
+
+## Technical Boundaries & Limitations of Level 3
+
+* **Personalization vs. Core Functional Processing:** Disabling "Smart Features & Personalization" and pausing "Web & App Activity" stops advertising dossiers, behavioral modeling, and cross-service intelligence ingestion. However, **Google must still process email metadata and contents for core server-side functions**: spam and phishing classification, virus scanning of attachments, and standard SMTP/IMAP protocol routing.
+* **Off-Meta Activity vs. On-Platform Telemetry:** Disconnecting "Off-Meta Activity" stops external merchant SDKs from directly matching outside page visits to your profile for ad targeting. However, **all on-platform actions** (accounts followed, reels watched, dwell time, direct messages metadata, and WhatsApp connection graphs) remain fully tracked and monetized by Meta within their proprietary ecosystem.
+* **Forwarding vs. Plaintext Ingestion:** Forwarding Gmail to Proton Mail or Tuta protects future storage from Google's mobile app client and search indexing, but any email originally sent to `@gmail.com` first traverses Google's incoming MX servers in standard TLS/SMTP plaintext before being encrypted at rest by the forwarding recipient.
+* **Account Recovery Vulnerability:** Aggressive account anonymization or clearing all session cookies without setting up physical FIDO2 hardware keys (YubiKey) or verified TOTP authenticator backup codes risks permanent lockout if standard SMS recovery fails.
 
 ---
 

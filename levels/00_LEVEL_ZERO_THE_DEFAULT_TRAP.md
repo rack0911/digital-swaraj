@@ -1,5 +1,11 @@
 # Level 0: The Default Trap (What They Know While You Sleep)
 
+> **Document Status:** Verified (Current as of October 2026)  
+> **Target Standards:** Android 13/14/15, CCPA Dark Patterns Guidelines (2023), RBI Digital Lending Circular (2022)  
+> **Official Citations:** [MoCA Retail Phone Number Advisory](https://pib.gov.in/PressReleasePage.aspx?PRID=1926639), [CCPA Dark Patterns Notification](https://consumeraffairs.nic.in/sites/default/files/CCPA_Notification.pdf), [RBI Digital Lending Directions](https://www.rbi.org.in/Scripts/BS_CircularIndexDisplay.aspx?Id=12382)
+
+---
+
 > ### Public Interest & Legal Notice
 > This document is published strictly for educational and consumer awareness under **Article 19(1)(a)** and **Article 21 (Right to Privacy)** of the Constitution of India (*Justice K.S. Puttaswamy (Retd.) v. Union of India*, 2017). All observations reference documented system defaults, official advisories from the **Ministry of Consumer Affairs**, the **CCPA Guidelines for Prevention of Dark Patterns (2023)**, **RBI Digital Lending Guidelines**, and **CERT-In**. All product names are used solely for descriptive, nominative identification under **Section 30 of the Trade Marks Act, 1999**.
 
@@ -87,6 +93,14 @@
 - **The Habit:** Assuming your commercial receipts are private and that Google stopped indexing purchases when they redirected the old dashboard.
 - **The History:** In 2019, an exposé revealed that Google kept an un-deletable 5-year ledger of all user receipts at `myaccount.google.com/purchases`. After global privacy backlash, Google quietly **killed and redirected that standalone web page**.
 - **The Reality:** While the embarrassing public dashboard was removed, the backend machine-learning scraper was not. Receipt parsing still runs silently in the background under **"Smart features and personalization"** (in *Gmail ➔ Settings*) to feed companion services.
+
+---
+
+## Technical Boundaries & Limitations of Level 0
+
+* **Audit vs. Remediation:** Recognizing these ten street-level extraction vectors establishes threat-model awareness; it does **not** retroactively scrub historical data already ingested by commercial data brokers or crowdsourced caller-ID directories.
+* **Passive vs. Active Interception:** Physical surveillance traps (e.g., Xerox shop downloads or residential thermal shipping labels) require operational behavioral discipline rather than software toggles.
+* **Scope of Countermeasures:** Technical, programmatic countermeasures against digital extraction (browser fingerprinting, encrypted DNS, radio scanning, and background daemons) begin systematically in Level 1 through Level 5.
 
 ---
 

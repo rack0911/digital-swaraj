@@ -1,5 +1,11 @@
 # Level 7: The Sovereign Workstation (Workstation Containment & WhatsApp Sandboxing)
 
+> **Document Status:** Verified (Current as of October 2026)  
+> **Technical Baseline:** Linux Kernel 6.x, Wayland / PipeWire, Waydroid (LXC namespaces / Android 11+ AOSP)  
+> **Standards & Specifications:** [ISO/IEC 26300 (Open Document Format)](https://www.oasis-open.org/standards#opendocumentv1.2), [Linux Kernel cgroups v2 and user namespaces](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html), [W3C WebAssembly Specification](https://www.w3.org/TR/wasm-core-1/)
+
+---
+
 > ### Time Required: 30 Minutes | Difficulty: Advanced | Workflow Disruption: High
 > 
 > *Level 7 is the pinnacle of the playbook. In modern India, the smartphone has evolved into an electronic leash—interrupting focus with constant notification loops. Western privacy guides advise people to "just delete WhatsApp," which is socially and professionally impossible in India. In Level 7, we implement the ultimate compromise: sandboxing WhatsApp inside a desktop container on an open Linux workstation, replacing cloud office suites with local FOSS tools, processing sensitive documents locally, and restoring your physical phone to a calm, distraction-free utility.*
@@ -164,6 +170,15 @@ Once your primary messaging and professional communications are contained within
   - Direct Bank UPI (BHIM) for offline merchant transactions.
   - Offline 2FA (Aegis Authenticator).
   - Navigation (pure satellite GPS).
+
+---
+
+## Technical Boundaries & Limitations of Level 7
+
+* **Waydroid Isolation vs. Network-Level Metadata:** Waydroid isolates WhatsApp inside Linux cgroups and namespaces, completely cutting off access to physical handset sensors, call logs, contacts, and location data. However, **Meta's servers still see your connection IP address, network session timings, and associated phone number** whenever the Waydroid container is running and connected to the internet.
+* **Microphone & Camera in Waydroid:** While Waydroid supports audio passthrough via PulseAudio/PipeWire and camera passthrough via V4L2 nodes, hardware passthrough configuration can require manual device-node permission tuning (`/dev/video*`, `/dev/snd/*`) depending on your desktop distribution and Wayland compositor.
+* **Local Office Suites vs. Complex VBA Macros:** LibreOffice Calc and OnlyOffice offer high-fidelity Microsoft Office compatibility for standard corporate documents. However, legacy enterprise spreadsheets relying on proprietary Windows-specific Visual Basic for Applications (VBA) ActiveX objects or direct Windows COM-automation may encounter syntax incompatibilities and require manual adjustment.
+* **Hardware Compatibility & Dual-Booting:** Migrating to Linux requires verifying vendor Wi-Fi firmware and fingerprint sensor driver availability, especially on proprietary consumer laptops with locked hardware modules.
 
 ---
 

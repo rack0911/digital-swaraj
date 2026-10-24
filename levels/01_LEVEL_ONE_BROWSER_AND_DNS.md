@@ -1,5 +1,11 @@
 # Level 1: The Zero-Effort Shield (Browser, Search & DNS) 
 
+> **Document Status:** Verified (Current as of October 2026)  
+> **Technical Baseline:** Android 13/14/15, Linux Kernel 6.x, Chromium / Gecko (Firefox ESR)  
+> **Official Citations:** [RFC 7858 (DNS over TLS)](https://datatracker.ietf.org/doc/html/rfc7858), [RFC 8484 (DNS over HTTPS)](https://datatracker.ietf.org/doc/html/rfc8484), [CERT-In Directions No. 20(3)/2022-CERT-In](https://www.cert-in.org.in/PDF/CERT-In_Directions_70B_28.04.2022.pdf), [CCPA Guidelines for Prevention of Dark Patterns (2023)](https://consumeraffairs.nic.in/sites/default/files/CCPA_Notification.pdf)
+
+---
+
 > ###  Time Required: 10 Minutes | Difficulty: Beginner | Workflow Disruption: Zero
 > 
 > *The simplest, highest-leverage privacy upgrades require no behavioral sacrifice. In Level 1, we replace the three primary surveillance pipes on your phone and laptop: your browser, your search engine, and your DNS resolver.*
@@ -10,7 +16,7 @@
 
 | Vector | Current Vulnerable Default | The Zero-Effort Fix | Direct Result |
 | :--- | :--- | :--- | :--- |
-| **Mobile Browser** | Google Chrome | **Brave** or **Firefox** | Blocks 95%+ of ad trackers, cookie scripts, and dynamic pricing surges. |
+| **Mobile Browser** | Google Chrome | **Brave** or **Firefox** | Blocks network-level ad trackers, third-party cookie scripts, and fingerprinting probes. |
 | **Desktop Isolation** | Standard Tabs | **Firefox Multi-Account Containers** | Traps trackers and sessions in isolated cookie vaults. |
 | **Search Engine** | Google Search | **Brave Search** or **DuckDuckGo** | Eliminates sponsored fake customer care numbers and search profiling. |
 | **Device DNS** | Plaintext Telecom ISP (Port 53) | **Android Private DNS (DoT)** | Encrypts all domain requests; blinds telecom ISP logging across mobile data. |
@@ -179,6 +185,15 @@ To verify that your Level 1 defenses are functioning, open your new browser and 
 2. **EFF Fingerprint Diagnostic:** 
     **[coveryourtracks.eff.org](https://coveryourtracks.eff.org)**  
  *Target:* Verifies that your browser resists unique device fingerprinting.
+
+---
+
+## Technical Boundaries & Limitations of Level 1
+
+* **DNS Encryption vs. Destination IP and SNI Exposure:** Encrypted DNS (DNS-over-TLS via RFC 7858 or DNS-over-HTTPS via RFC 8484) encrypts domain name resolution queries, preventing intermediate ISPs and local network sniffers from logging plaintext UDP Port 53 lookups. However, **DNS encryption does not conceal destination IP addresses**. Furthermore, during the subsequent TLS connection handshake, unless both the client and destination server support **Encrypted Client Hello (ECH / RFC 9460)**, the Server Name Indication (SNI) header is transmitted in plaintext, allowing an upstream network operator with deep-packet inspection (DPI) to identify the target domain.
+* **Browser Isolation vs. Authenticated User Sessions:** Privacy-hardened browsers (Brave, Firefox with Multi-Account Containers) isolate cross-site cookies, randomize canvas/audio fingerprints, and strip URL referral parameters. However, **they do not anonymize activity conducted while logged into a central user account**. Logging into a personal Google, Amazon, or social media account inside an isolated container still associates all queries, clicks, and session timestamps directly with your account profile.
+* **VPN Egress vs. Domestic Banking Services:** Commercial zero-log VPNs operating outside Indian jurisdiction tunnel traffic securely, masking your residential IP from destination web servers. However, major Indian public and private sector banks (SBI, HDFC, ICICI), UPI payment gateways, and statutory portals (Income Tax Department, EPFO) employ automated fraud-detection filters that routinely block or flag incoming traffic from foreign or commercial VPN datacenter IP ranges. Accessing these services frequently requires split-tunneling or temporary VPN suspension.
+* **Router-Level DNS (Port 53 Fallback):** Setting custom DNS server IPs on a standard home Wi-Fi modem routes network queries away from default ISP resolvers for connected devices. However, standard consumer router firmware transmits these queries across the WAN interface using unencrypted **plaintext UDP Port 53** unless the router runs custom firmware (e.g., OpenWrt) with native DNS-over-TLS or a dedicated local encrypted forwarder (such as AdGuard Home or Pi-hole with upstream DoT).
 
 ---
 
