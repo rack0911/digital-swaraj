@@ -76,7 +76,7 @@ Take it one step at a time. Stop at whatever level matches your personal comfort
   *Isolating your contact footprint.* Three-tier email architecture (Sovereign Vault, managed aliases, 10-minute burners like Emailnator), credential isolation (Bitwarden/Proton), and offline 2FA (Aegis).
 
 - **[Level 5: The Mobile FOSS Stack](levels/05_LEVEL_FIVE_MOBILE_FOSS_STACK.md)**  
-  *Clean, telemetry-free daily tools.* F-Droid, Aurora Store (anonymous Play Store), HeliBoard, LocalSend, NewPipe / Brave YouTube, Fossify utilities, and offline fitness (FitoTrack/Stepsy).
+  *Clean daily tools & deep daemon surgery.* F-Droid, Aurora Store (anonymous Play Store), HeliBoard, LocalSend, Fossify suite, and neutralizing hidden Google & OEM background tracking daemons (call-log scrapers, always-on mic listeners) via ADB without rooting.
 
 - **[Level 6: Street & FinTech Defense](levels/06_LEVEL_SIX_STREET_AND_FINTECH_DEFENSE.md)**  
   *Real-world consumer protocols.* Masked Aadhaar usage, citing Ministry of Consumer Affairs retail billing rights, direct bank UPI, and delivery parcel honey-token defense.
