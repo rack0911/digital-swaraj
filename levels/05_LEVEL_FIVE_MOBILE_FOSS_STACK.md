@@ -267,11 +267,77 @@ adb shell cmd appops set com.nothing.experience READ_SMS ignore
 adb shell cmd appops set com.nothing.experience BODY_SENSORS ignore
 
 # -------------------------------------------------------------
-# 5. Kill Hardware Statistics & Diagnostic Leftovers
+# 5. Kill Hardware Statistics, Promoted Installs & AI Loggers
 # -------------------------------------------------------------
 adb shell pm uninstall -k --user 0 com.qualcomm.qti.devicestatisticsservice
 adb shell pm disable-user --user 0 com.tools.cit
+adb shell pm uninstall -k --user 0 android.autoinstalls.config.Nothing
+adb shell pm uninstall -k --user 0 android.autoinstalls.config.Xiaomi.model
+adb shell pm uninstall -k --user 0 com.google.android.apps.turbo          # Device Health Services telemetry
+adb shell pm uninstall -k --user 0 com.google.android.as                 # Android System Intelligence telemetry
+adb shell pm uninstall -k --user 0 com.google.android.as.oss
+adb shell pm uninstall -k --user 0 com.google.android.gms.location.history
+adb shell pm uninstall -k --user 0 com.google.android.gms.supervision
+
+# -------------------------------------------------------------
+# 6. Contain Google Play Services (GMS) via Kernel-Level AppOps Sandbox
+# -------------------------------------------------------------
+# DO NOT uninstall Google Play Services (GMS) directly on daily devices,
+# as complete removal breaks banking apps, UPI, and Firebase Cloud Messaging (FCM).
+# Instead, sandbox GMS at the kernel/Binder level using AppOps. This forces GMS
+# to return empty/mock null responses to surveillance queries while preserving 
+# 100% working push notifications, Play Integrity attestation, and biometrics.
+
+# Silence SMS Sniffing & OTP Interception:
+adb shell cmd appops set com.google.android.gms RECEIVE_SMS ignore
+adb shell cmd appops set com.google.android.gms READ_SMS ignore
+adb shell cmd appops set com.google.android.gms SEND_SMS ignore
+adb shell cmd appops set com.google.android.gms WRITE_SMS ignore
+adb shell pm revoke com.google.android.gms android.permission.RECEIVE_SMS 2>/dev/null
+adb shell pm revoke com.google.android.gms android.permission.READ_SMS 2>/dev/null
+
+# Block Calls, Contacts & Call Log Surveillance:
+adb shell cmd appops set com.google.android.gms READ_CONTACTS ignore
+adb shell cmd appops set com.google.android.gms WRITE_CONTACTS ignore
+adb shell cmd appops set com.google.android.gms READ_CALL_LOG ignore
+adb shell cmd appops set com.google.android.gms PROCESS_OUTGOING_CALLS ignore
+
+# Block Physical Location & Motion/Activity Profiling:
+adb shell cmd appops set com.google.android.gms COARSE_LOCATION ignore
+adb shell cmd appops set com.google.android.gms FINE_LOCATION ignore
+adb shell cmd appops set com.google.android.gms GPS ignore
+adb shell cmd appops set com.google.android.gms MONITOR_LOCATION ignore
+adb shell cmd appops set com.google.android.gms MONITOR_HIGH_POWER_LOCATION ignore
+adb shell cmd appops set com.google.android.gms ACTIVITY_RECOGNITION ignore
+adb shell cmd appops set com.google.android.gms BODY_SENSORS ignore
+
+# Block Microphone, Camera & Gallery Snooping:
+adb shell cmd appops set com.google.android.gms RECORD_AUDIO ignore
+adb shell cmd appops set com.google.android.gms CAMERA ignore
+adb shell cmd appops set com.google.android.gms READ_MEDIA_IMAGES ignore
+adb shell cmd appops set com.google.android.gms READ_MEDIA_VIDEO ignore
+adb shell cmd appops set com.google.android.gms READ_MEDIA_AUDIO ignore
+adb shell cmd appops set com.google.android.gms READ_EXTERNAL_STORAGE ignore
+adb shell cmd appops set com.google.android.gms WRITE_EXTERNAL_STORAGE ignore
+
+# Block Wireless Beacons & Clipboard Snooping (GMS & Play Store):
+adb shell cmd appops set com.google.android.gms BLUETOOTH_SCAN ignore
+adb shell cmd appops set com.google.android.gms BLUETOOTH_CONNECT ignore
+adb shell cmd appops set com.google.android.gms BLUETOOTH_ADVERTISE ignore
+adb shell cmd appops set com.google.android.gms NEARBY_WIFI_DEVICES ignore
+adb shell cmd appops set com.google.android.gms WIFI_SCAN ignore
+adb shell cmd appops set com.google.android.gms READ_CLIPBOARD ignore
+adb shell cmd appops set com.android.vending READ_CLIPBOARD ignore
+adb shell cmd appops set com.android.vending COARSE_LOCATION ignore
+adb shell cmd appops set com.android.vending FINE_LOCATION ignore
 ```
+
+> [!CAUTION]
+> ### OEM Bootloop Tripwires: What NEVER to Uninstall
+> 1. **Android 14, 15 & 16 (`com.google.android.sdksandbox`):**
+>    Android's core `PackageManagerService.java` hardcodes a dependency on `com.google.android.sdksandbox` via `getRequiredSdkSandboxPackageName()`. **Never** uninstall or disable this package for user 0, or `system_server` will crash endlessly on boot.
+> 2. **Xiaomi MIUI / HyperOS (`com.xiaomi.finddevice`):**
+>    Xiaomi's proprietary `SecurityManagerService.java` enforces a hardcoded signature check on boot (`connot find system app : com.xiaomi.finddevice`). Uninstalling it causes an immediate boot-loop on the Mi splash screen. **Do not uninstall `com.xiaomi.finddevice`**; instead, castrate its permissions via AppOps (`cmd appops set com.xiaomi.finddevice <OP> ignore`) and revoke its location permissions while leaving the inert package registered.
 
 ---
 
