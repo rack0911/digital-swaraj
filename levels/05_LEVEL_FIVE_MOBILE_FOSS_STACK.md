@@ -257,8 +257,14 @@ adb shell pm uninstall -k --user 0 com.google.android.partnersetup
 # Packages returning [DELETE_FAILED_INTERNAL_ERROR] must be disabled:
 adb shell pm disable-user --user 0 com.nothing.experience
 adb shell pm disable-user --user 0 com.nothing.logkit
-adb shell pm disable-user --user 0 com.nothing.ai.service
-adb shell pm disable-user --user 0 com.nothing.smartcenter
+adb shell pm disable-user --user 0 com.nothing.appservice                 # Silent partner app installer
+adb shell pm disable-user --user 0 com.nothing.essentialintelligence      # AI behavior tracking engine
+adb shell pm disable-user --user 0 com.nothing.aiwidget
+adb shell pm disable-user --user 0 com.nothing.user.center
+adb shell pm disable-user --user 0 com.nothing.universal.search           # Search indexing
+adb shell pm disable-user --user 0 com.nothing.ntgamedashboard
+adb shell pm disable-user --user 0 com.nothing.userguide
+adb shell pm disable-user --user 0 com.nothing.introduction16
 
 # Enforce Kernel-Level AppOps Restrictions:
 adb shell cmd appops set com.nothing.experience RUN_IN_BACKGROUND ignore
@@ -278,6 +284,11 @@ adb shell pm uninstall -k --user 0 com.google.android.as                 # Andro
 adb shell pm uninstall -k --user 0 com.google.android.as.oss
 adb shell pm uninstall -k --user 0 com.google.android.gms.location.history
 adb shell pm uninstall -k --user 0 com.google.android.gms.supervision
+adb shell pm uninstall -k --user 0 com.google.android.apps.work.clouddpc  # Enterprise/MDM cloud telemetry
+adb shell pm uninstall -k --user 0 com.google.android.contactkeys
+adb shell pm uninstall -k --user 0 com.google.android.apps.restore        # Cloud sync/restore daemon
+adb shell pm uninstall -k --user 0 com.google.android.apps.safetyhub      # Safety tracking daemon
+adb shell pm uninstall -k --user 0 com.google.android.apps.carrier.carrierwifi
 
 # -------------------------------------------------------------
 # 6. Contain Google Play Services (GMS) via Kernel-Level AppOps Sandbox
