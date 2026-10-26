@@ -122,6 +122,8 @@ While Nothing OS promotes a clean interface, inspection of package records and r
 com.nothing.appservice            ──► Background engine for silent partner app promotion.
 com.nothing.essentialintelligence ──► On-device AI tracking and behavioral telemetry.
 com.nothing.universal.search      ──► System indexer capturing local queries and contacts.
+com.nothing.ntessentialspace      ──► Proprietary Essential Space cloud integration.
+com.nothing.ntessentialrecorder   ──► Background Essential Voice/Audio recorder.
 com.nothing.logkit                ──► Diagnostic uploader and crash log harvester.
 com.nothing.experience            ──► User Experience Programme behavioral analytics.
 com.nothing.proxy                 ──► Holds NothingWifiTrackService and BluetoothTrackService.

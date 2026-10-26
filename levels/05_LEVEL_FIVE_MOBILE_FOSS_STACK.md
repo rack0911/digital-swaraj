@@ -262,6 +262,8 @@ adb shell pm disable-user --user 0 com.nothing.essentialintelligence      # AI b
 adb shell pm disable-user --user 0 com.nothing.aiwidget
 adb shell pm disable-user --user 0 com.nothing.user.center
 adb shell pm disable-user --user 0 com.nothing.universal.search           # Search indexing
+adb shell pm disable-user --user 0 com.nothing.ntessentialspace           # Dedicated Essential Button service
+adb shell pm disable-user --user 0 com.nothing.ntessentialrecorder        # Essential Voice recorder
 adb shell pm disable-user --user 0 com.nothing.ntgamedashboard
 adb shell pm disable-user --user 0 com.nothing.userguide
 adb shell pm disable-user --user 0 com.nothing.introduction16
