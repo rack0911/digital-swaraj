@@ -120,6 +120,13 @@ Take it one step at a time. Stop at whatever level matches your personal comfort
 
 ---
 
+### Field Forensic Case Studies
+
+- **[Forensic Case Study: Defanging Surveillance Capitalism on Nothing Phone (2a) & Stock Android](case_studies/NOTHING_PHONE_2A_FORENSIC_DEBLOAT_CASE_STUDY.md)**  
+  *Real-world hardware audit.* How Google Play Services was captured intercepting incoming financial OTPs (`RECEIVE_SMS`), monitoring outgoing phone calls, and maintaining secondary backdoors across DualApps and Private Space profiles—and the verified non-root kernel AppOps protocol used to neutralize it without breaking Indian banking apps (BHIM/UPI/YONO).
+
+---
+
 ## Core Principles
 
 1. **Pragmatism Over Paranoia:** We live in the real world. You still need to book IRCTC tickets, receive UPI payments, and stay in touch with family. We build sensible barriers, not impractical prisons.

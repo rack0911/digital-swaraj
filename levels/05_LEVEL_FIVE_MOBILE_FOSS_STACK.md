@@ -343,6 +343,11 @@ adb shell cmd appops set com.android.vending COARSE_LOCATION ignore
 adb shell cmd appops set com.android.vending FINE_LOCATION ignore
 ```
 
+> [!TIP]
+> **Detailed Forensic Case Study:**  
+> For the complete, unredacted forensic timeline showing live ADB timestamps of Google Play Services intercepting financial OTPs, Outgoing Calls, and exploiting DualApps profiles, read the companion case study:  
+> **[Forensic Case Study: Defanging Surveillance Capitalism on Nothing Phone (2a)](../case_studies/NOTHING_PHONE_2A_FORENSIC_DEBLOAT_CASE_STUDY.md)**.
+
 > [!CAUTION]
 > ### OEM Bootloop Tripwires: What NEVER to Uninstall
 > 1. **Android 14, 15 & 16 (`com.google.android.sdksandbox`):**
